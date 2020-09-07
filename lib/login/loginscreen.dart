@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-
-// import '../login widgets/beziercontainer.dart';
+import '../widgets/login widgets/beziercontainer.dart';
 
 class LoginPage extends StatefulWidget {
   static const String id = '/LoginPage';
@@ -22,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: Icon(Icons.keyboard_arrow_left, color: Colors.black),
+              child: Icon(Icons.keyboard_arrow_left, color: Colors.white),
             ),
             Text('Back',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500))
@@ -38,21 +37,13 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
-          SizedBox(
-            height: 10,
-          ),
           Container(
-            width: MediaQuery.of(context).size.width * .70,
+            width: MediaQuery.of(context).size.width * .60,
             child: TextField(
               obscureText: isPassword,
               decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
-                  filled: true),
+                hintText: '$title',
+              ),
             ),
           ),
         ],
@@ -74,14 +65,7 @@ class _LoginPageState extends State<LoginPage> {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(100)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.grey.shade200,
-                  offset: Offset(2, 4),
-                  blurRadius: 5,
-                  spreadRadius: 2)
-            ],
-            color: Colors.teal,
+            color: Colors.green,
           ),
           child: Text(
             '$type',
@@ -105,13 +89,6 @@ class _LoginPageState extends State<LoginPage> {
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(100)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.grey.shade200,
-                  offset: Offset(2, 4),
-                  blurRadius: 5,
-                  spreadRadius: 2)
-            ],
             color: Colors.teal,
           ),
           child: Text(
@@ -150,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Text(
                 'Register',
                 style: TextStyle(
-                    color: Colors.orange,
+                    color: Colors.blueAccent,
                     fontSize: 17,
                     fontWeight: FontWeight.bold),
               ),
@@ -183,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Text(
                 'Login',
                 style: TextStyle(
-                    color: Colors.orange,
+                    color: Colors.blueAccent,
                     fontSize: 17,
                     fontWeight: FontWeight.bold),
               ),
@@ -294,10 +271,10 @@ class _LoginPageState extends State<LoginPage> {
       height: height,
       child: Stack(
         children: <Widget>[
-          // Positioned(
-          //     top: -height * .15,
-          //     right: -MediaQuery.of(context).size.width * .4,
-          //     child: BezierContainer()),
+          Positioned(
+              top: -height * .15,
+              left: -MediaQuery.of(context).size.width * .4,
+              child: BezierContainer()),
           Positioned(
             left: -2,
             bottom: 200,
@@ -306,8 +283,8 @@ class _LoginPageState extends State<LoginPage> {
               child: Container(
                 width: 100.0,
                 height: 100.0,
-                decoration:
-                    BoxDecoration(color: Colors.orange, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                    color: Colors.blueAccent, shape: BoxShape.circle),
               ),
             ),
           ),
@@ -320,7 +297,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: 150.0,
                   height: 150.0,
                   decoration: BoxDecoration(
-                      color: Colors.orange, shape: BoxShape.circle),
+                      color: Colors.blueAccent, shape: BoxShape.circle),
                 ),
               )),
           Container(
@@ -333,13 +310,13 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: height * .15),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                    alignment: Alignment.centerLeft,
+                    alignment: Alignment.center,
                     child: Text(
                       '$type',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
-                          color: Colors.orange),
+                          color: Colors.blueAccent),
                     ),
                   ),
                   SizedBox(height: height * .02),

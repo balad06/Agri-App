@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './loginScreen.dart';
 
 class WelcomePage extends StatelessWidget {
   static const String id = '/WelcomePage';
@@ -9,51 +10,90 @@ class WelcomePage extends StatelessWidget {
         resizeToAvoidBottomPadding: false,
         body: Stack(
           children: <Widget>[
+            Image(
+              image: AssetImage('assets/images/agriculture.jpg'),
+              height: double.infinity,
+              width: MediaQuery.of(context).size.height,
+              fit: BoxFit.fitHeight,
+            ),
+            Positioned(
+              top: 200,
+              left: -50,
+              child: Opacity(
+                opacity: .45,
+                child: Container(
+                  width: 140.0,
+                  height: 140.0,
+                  decoration: BoxDecoration(
+                      color: Colors.yellowAccent, shape: BoxShape.circle),
+                ),
+              ),
+            ),
+            Positioned(
+              right: -50,
+              top: -40,
+              child: Opacity(
+                opacity: .4,
+                child: Container(
+                  width: 145.0,
+                  height: 145.0,
+                  decoration: BoxDecoration(
+                      color: Colors.yellowAccent, shape: BoxShape.circle),
+                ),
+              ),
+            ),
+            Positioned(
+              right: -50,
+              bottom: -30,
+              child: Opacity(
+                opacity: .4,
+                child: Container(
+                  width: 150.0,
+                  height: 150.0,
+                  decoration: BoxDecoration(
+                      color: Colors.yellowAccent, shape: BoxShape.circle),
+                ),
+              ),
+            ),
             Container(
-              color: Colors.white,
               height: double.infinity,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Image(
-                        image: AssetImage('assets/images/agrilogo1.jpg'),
-                        fit: BoxFit.cover),
-                    SizedBox(height: 10.0),
+                    Container(
+                      height: MediaQuery.of(context).size.height * .3,
+                      child: Image(
+                        image: AssetImage('assets/images/logo.png'),
+                      ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * .25),
                     Padding(
                       child: Text(
                         'Welcome',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 39.0,
-                            color: Colors.teal,
+                            fontSize: 42.0,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: 35.0),
                     ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(53.0, 50.0, 53.0, 0.0),
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: 5.0),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 43.0),
+                    SizedBox(height: MediaQuery.of(context).size.height * .15),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 60.0),
                       child: Container(
                         height: 50.0,
                         decoration: BoxDecoration(
-                            color: Colors.teal,
+                            color: Colors.green,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(100.0))),
                         child: Center(
                           child: InkWell(
-                            // onTap: () {
-                            //   Navigator.pushNamed(context, LoginPage.id,
-                            //       arguments: 'Sign In');
-                            // },
+                            onTap: () {
+                              Navigator.pushNamed(context, LoginPage.id,
+                                  arguments: 'Sign In');
+                            },
                             child: Text(
                               'Sign In',
                               style: TextStyle(
@@ -72,18 +112,19 @@ class WelcomePage extends StatelessWidget {
                         Text(
                           'New Here?   ',
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         InkWell(
-                          // onTap: () {
-                          //   Navigator.pushNamed(context, LoginPage.id,
-                          //       arguments: 'Register');
-                          // },
+                          onTap: () {
+                            Navigator.pushNamed(context, LoginPage.id,
+                                arguments: 'Register');
+                          },
                           child: Text(
                             'Create Account',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.blueAccent,
+                              color: Colors.yellow,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -94,45 +135,7 @@ class WelcomePage extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              top: 200,
-              left: -50,
-              child: Opacity(
-                opacity: .75,
-                child: Container(
-                  width: 140.0,
-                  height: 140.0,
-                  decoration: BoxDecoration(
-                      color: Colors.blueAccent, shape: BoxShape.circle),
-                ),
-              ),
-            ),
-            Positioned(
-              right: -50,
-              top: -40,
-              child: Opacity(
-                opacity: .9,
-                child: Container(
-                  width: 175.0,
-                  height: 175.0,
-                  decoration: BoxDecoration(
-                      color: Colors.blueAccent, shape: BoxShape.circle),
-                ),
-              ),
-            ),
-            Positioned(
-              right: -50,
-              bottom: -30,
-              child: Opacity(
-                opacity: .6,
-                child: Container(
-                  width: 150.0,
-                  height: 150.0,
-                  decoration: BoxDecoration(
-                      color: Colors.blueAccent, shape: BoxShape.circle),
-                ),
-              ),
-            ),
+
             // Positioned(
             //   child: Opacity(
             //     opacity: .6,

@@ -1,6 +1,7 @@
+import 'package:agri_app/pages/picturesearch.dart';
 import 'package:flutter/material.dart';
-
-import '../widgets/login widgets/beziercontainer.dart';
+import '../alarm/screens/reminderpage.dart';
+import './login widgets/beziercontainer.dart';
 
 class LoginPage extends StatefulWidget {
   static const String id = '/LoginPage';
@@ -21,7 +22,9 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: Icon(Icons.keyboard_arrow_left, color: Colors.white),
+              child: Icon(
+                Icons.keyboard_arrow_left,
+              ),
             ),
             Text('Back',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500))
@@ -36,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: <Widget>[///
           Container(
             width: MediaQuery.of(context).size.width * .60,
             child: TextField(
@@ -54,18 +57,18 @@ class _LoginPageState extends State<LoginPage> {
   Widget _submitButton(String type) {
     if (type == 'Register') {
       return InkWell(
-        // onTap: () {
-        //   Navigator.pushReplacementNamed(context, ProfilePage.id,
-        //       arguments: 'first');
-        // },
+        onTap: () {
+          Navigator.pushReplacementNamed(context, ReminderPage.id,
+              arguments: 'first');
+        },
         child: Container(
           height: 50,
-          width: MediaQuery.of(context).size.width * .85,
+          width: MediaQuery.of(context).size.width * .45,
           padding: EdgeInsets.symmetric(vertical: 15),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(100)),
-            color: Colors.green,
+            color: Colors.blueAccent,
           ),
           child: Text(
             '$type',
@@ -76,25 +79,25 @@ class _LoginPageState extends State<LoginPage> {
       );
     } else {
       return InkWell(
-        // onTap: () {
-        //   Navigator.pushReplacementNamed(
-        //     context,
-        //     DashBoard.id,
-        //   );
-        // },
+        onTap: () {
+          Navigator.pushReplacementNamed(
+            context,
+            PictureSearch.id,
+          );
+        },
         child: Container(
           height: 50,
-          width: MediaQuery.of(context).size.width * .85,
+          width: MediaQuery.of(context).size.width * .45,
           padding: EdgeInsets.symmetric(vertical: 15),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(100)),
-            color: Colors.teal,
+            color: Colors.blueAccent,
           ),
           child: Text(
             '$type',
             style: TextStyle(
-                fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold),
+                fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
       );
@@ -127,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Text(
                 'Register',
                 style: TextStyle(
-                    color: Colors.blueAccent,
+                    color: Colors.lightGreen,
                     fontSize: 17,
                     fontWeight: FontWeight.bold),
               ),
@@ -204,8 +207,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _formWidget(String type) {
     if (type == 'Sign In') {
       return Container(
-        width: MediaQuery.of(context).size.width * .85,
-        height: MediaQuery.of(context).size.height * .4,
+        width: MediaQuery.of(context).size.width * .75,
+        height: MediaQuery.of(context).size.height * .35,
         child: Card(
           elevation: 5,
           child: Padding(
@@ -253,7 +256,8 @@ class _LoginPageState extends State<LoginPage> {
           onTap: () {},
           child: Text(
             'Forgot Password ?',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            style: TextStyle(
+                color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
           ),
         ),
       );
@@ -267,28 +271,25 @@ class _LoginPageState extends State<LoginPage> {
     final String type = ModalRoute.of(context).settings.arguments;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-        body: Container(
-      height: height,
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-              top: -height * .15,
-              left: -MediaQuery.of(context).size.width * .4,
-              child: BezierContainer()),
-          Positioned(
-            left: -2,
-            bottom: 200,
-            child: Opacity(
-              opacity: .4,
-              child: Container(
-                width: 100.0,
-                height: 100.0,
-                decoration: BoxDecoration(
-                    color: Colors.blueAccent, shape: BoxShape.circle),
+      body: Container(
+        height: height,
+        child: Stack(
+          children: <Widget>[
+            BezierContainer(),
+            Positioned(
+              left: -2,
+              bottom: 200,
+              child: Opacity(
+                opacity: .4,
+                child: Container(
+                  width: 100.0,
+                  height: 100.0,
+                  decoration: BoxDecoration(
+                      color: Colors.blueAccent, shape: BoxShape.circle),
+                ),
               ),
             ),
-          ),
-          Positioned(
+            Positioned(
               right: -20,
               bottom: -20,
               child: Opacity(
@@ -299,40 +300,43 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: BoxDecoration(
                       color: Colors.blueAccent, shape: BoxShape.circle),
                 ),
-              )),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: height * .15),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                    alignment: Alignment.center,
-                    child: Text(
-                      '$type',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: Colors.blueAccent),
-                    ),
-                  ),
-                  SizedBox(height: height * .02),
-                  _formWidget(type),
-                  SizedBox(height: height * .002),
-                  checkboxorforgot(type),
-                  SizedBox(height: height * .05),
-                  _submitButton(type),
-                  _createAccountLabel(type),
-                ],
               ),
             ),
-          ),
-          Positioned(top: 40, left: 0, child: _backButton()),
-        ],
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(height: height * .15),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                      alignment: Alignment.center,
+                      child: Text(
+                        '$type',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                            color: Colors.blueAccent),
+                      ),
+                    ),
+                    SizedBox(height: height * .02),
+                    _formWidget(type),
+                    SizedBox(height: height * .002),
+                    checkboxorforgot(type),
+                    SizedBox(height: height * .05),
+                    _submitButton(type),
+                    _createAccountLabel(type),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(top: 40, left: 0, child: _backButton()),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

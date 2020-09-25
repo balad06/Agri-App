@@ -25,7 +25,7 @@ class WelcomePage extends StatelessWidget {
                   width: 140.0,
                   height: 140.0,
                   decoration: BoxDecoration(
-                      color: Colors.yellowAccent, shape: BoxShape.circle),
+                      color: Colors.blueAccent, shape: BoxShape.circle),
                 ),
               ),
             ),
@@ -38,7 +38,7 @@ class WelcomePage extends StatelessWidget {
                   width: 145.0,
                   height: 145.0,
                   decoration: BoxDecoration(
-                      color: Colors.yellowAccent, shape: BoxShape.circle),
+                      color: Colors.blueAccent, shape: BoxShape.circle),
                 ),
               ),
             ),
@@ -51,7 +51,7 @@ class WelcomePage extends StatelessWidget {
                   width: 150.0,
                   height: 150.0,
                   decoration: BoxDecoration(
-                      color: Colors.yellowAccent, shape: BoxShape.circle),
+                      color: Colors.blueAccent, shape: BoxShape.circle),
                 ),
               ),
             ),
@@ -85,7 +85,7 @@ class WelcomePage extends StatelessWidget {
                       child: Container(
                         height: 50.0,
                         decoration: BoxDecoration(
-                            color: Colors.green,
+                            color: Colors.blueAccent,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(100.0))),
                         child: Center(
@@ -124,7 +124,7 @@ class WelcomePage extends StatelessWidget {
                             'Create Account',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.yellow,
+                              color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

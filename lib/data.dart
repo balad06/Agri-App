@@ -1,4 +1,4 @@
-import './alarm/alarm/alarm_info.dart';
+import './alarm/model/alarm_info.dart';
 
 List<AlarmInfo> alarms = [
   AlarmInfo(

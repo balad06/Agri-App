@@ -11,6 +11,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String password;
+  String confirm;
+  String ispass = 'cout123B';
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -39,10 +42,15 @@ class _LoginPageState extends State<LoginPage> {
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[///
+        children: <Widget>[
           Container(
             width: MediaQuery.of(context).size.width * .60,
             child: TextField(
+              onChanged: (value) {
+                if (title == 'Password') {
+                  password = value;
+                }
+              },
               obscureText: isPassword,
               decoration: InputDecoration(
                 hintText: '$title',
@@ -54,12 +62,42 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  showAlertDialog(BuildContext context) {
+    Widget continueButton = FlatButton(
+      child: Text("close"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("AlertDialog"),
+      content: Text('Error Login'),
+      actions: [
+        continueButton,
+      ],
+    );
+
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   Widget _submitButton(String type) {
     if (type == 'Register') {
       return InkWell(
         onTap: () {
-          Navigator.pushReplacementNamed(context, ReminderPage.id,
-              arguments: 'first');
+          if (password == confirm) {
+            Navigator.pushReplacementNamed(
+              context,
+              ReminderPage.id,
+            );
+          } else {
+            return showAlertDialog(context);
+          }
         },
         child: Container(
           height: 50,
@@ -80,10 +118,14 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       return InkWell(
         onTap: () {
-          Navigator.pushReplacementNamed(
-            context,
-            PictureSearch.id,
-          );
+          if (password == ispass) {
+            Navigator.pushReplacementNamed(
+              context,
+              PictureSearch.id,
+            );
+          } else {
+            return showAlertDialog(context);
+          }
         },
         child: Container(
           height: 50,
@@ -97,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Text(
             '$type',
             style: TextStyle(
-                fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+                fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
       );
@@ -193,10 +235,14 @@ class _LoginPageState extends State<LoginPage> {
             width: MediaQuery.of(context).size.width * .75,
             child: TextField(
               obscureText: isPassword,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
-                  filled: true),
+              onSubmitted: (value) {
+                if (title == 'Password') {
+                  password = value;
+                }
+                if (title == 'Confirm Password') {
+                  confirm = value;
+                }
+              },
             ),
           ),
         ],

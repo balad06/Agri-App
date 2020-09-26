@@ -1,4 +1,7 @@
+import 'package:agri_app/alarmm/add_alarm.dart';
+import 'package:agri_app/alarmm/home.dart';
 import 'package:agri_app/shop/screens/cart_screen.dart';
+import 'package:agri_app/shop/screens/edit_product_screen.dart';
 import 'package:agri_app/shop/screens/orders_screen.dart';
 import 'package:agri_app/login/loginscreen.dart';
 import 'package:agri_app/login/welcome.dart';
@@ -53,6 +56,9 @@ class MyApp extends StatelessWidget {
         OrdersScreen.id:(context) => OrdersScreen(),
         ProductsOverviewScreen.id: (context) => ProductsOverviewScreen(),
         UserProductsScreen.id: (context) => UserProductsScreen(),
+        EditProductScreen.id:(context) => EditProductScreen(),
+        Home.id:(context) => Home(),
+        AddAlarm.id: (context) => AddAlarm(),
       },
 
       ),

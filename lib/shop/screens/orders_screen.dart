@@ -11,14 +11,21 @@ class OrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orderData = Provider.of<Orders>(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Your Orders'),
-      ),
-      drawer: MainDrawer(),
-      body: ListView.builder(
-        itemCount: orderData.orders.length,
-        itemBuilder: (ctx, i) => OrderItem(orderData.orders[i]),
+    return SafeArea(
+          child: Scaffold(
+        appBar: AppBar(
+          title: Text('Your Orders'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(27),
+            ),
+          ),
+        ),
+        drawer: MainDrawer(),
+        body: ListView.builder(
+          itemCount: orderData.orders.length,
+          itemBuilder: (ctx, i) => OrderItem(orderData.orders[i]),
+        ),
       ),
     );
   }

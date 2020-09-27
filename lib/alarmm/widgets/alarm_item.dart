@@ -16,7 +16,6 @@ Widget alarmItem(hour, enabled){
                   color: Colors.white,
                   fontSize: 50.0,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'SourceSansPro'
                 ),),
                 Row(
                   children: <Widget>[

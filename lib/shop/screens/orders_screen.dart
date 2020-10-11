@@ -16,8 +16,9 @@ class OrdersScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text('Your Orders'),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(27),
+            borderRadius: BorderRadius.only(
+              bottomLeft:Radius.circular(27),
+              bottomRight:Radius.circular(27),
             ),
           ),
         ),

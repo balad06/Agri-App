@@ -1,6 +1,5 @@
-import 'package:agri_app/alarm/screens/reminderpage.dart';
-import 'package:agri_app/alarmm/home.dart';
-import 'package:agri_app/pages/picturesearch.dart';
+import 'package:agri_app/picture/picturesearch.dart';
+import 'package:agri_app/reminder/ui/homepage.dart';
 import 'package:agri_app/shop/screens/products_overview_screen.dart';
 import 'package:agri_app/shop/screens/user_products_screen.dart';
 import 'package:flutter/material.dart';
@@ -86,11 +85,8 @@ class MainDrawer extends StatelessWidget {
             Navigator.of(context).pushReplacementNamed(UserProductsScreen.id);
           },
         ),
-        buildTile('Alarm', Icons.alarm, () {
-          Navigator.of(context).pushReplacementNamed(ReminderPage.id);
-        }),
-        buildTile('Alarm', Icons.alarm, () {
-          Navigator.of(context).pushReplacementNamed(Home.id);
+         buildTile('reminder', Icons.alarm, () {
+          Navigator.of(context).pushReplacementNamed(HomePage.id);
         }),
          buildTile('Exit', Icons.shop, () {
           // Navigator.of(context).pushReplacementNamed(ProductsOverviewScreen.id);

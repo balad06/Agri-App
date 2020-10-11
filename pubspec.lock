@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  camera:
+    dependency: "direct main"
+    description:
+      name: camera
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.8+7"
   characters:
     dependency: transitive
     description:
@@ -78,11 +85,43 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.2.1"
+  flare_dart:
+    dependency: transitive
+    description:
+      path: flare_dart
+      ref: dev
+      resolved-ref: "64510c5723c8fafdd83dde9b88468bc78b2a5b47"
+      url: "git://github.com/2d-inc/Flare-Flutter.git"
+    source: git
+    version: "2.3.3"
+  flare_flutter:
+    dependency: "direct main"
+    description:
+      path: flare_flutter
+      ref: dev
+      resolved-ref: "64510c5723c8fafdd83dde9b88468bc78b2a5b47"
+      url: "git://github.com/2d-inc/Flare-Flutter.git"
+    source: git
+    version: "2.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_local_notifications:
+    dependency: "direct main"
+    description:
+      name: flutter_local_notifications
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0+1"
+  flutter_local_notifications_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_local_notifications_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -197,7 +236,7 @@ packages:
       name: plugin_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   process:
     dependency: transitive
     description:
@@ -212,6 +251,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.2+2"
+  rxdart:
+    dependency: "direct main"
+    description:
+      name: rxdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.24.1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -322,6 +368,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.17"
+  tflite:
+    dependency: "direct main"
+    description:
+      name: tflite
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.1"
+  timezone:
+    dependency: "direct main"
+    description:
+      name: timezone
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.7"
   typed_data:
     dependency: transitive
     description:

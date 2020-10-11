@@ -28,8 +28,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         appBar: AppBar(
           title: Text('MyShop'),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(27),
+            borderRadius: BorderRadius.only(
+              bottomLeft:Radius.circular(27),
+              bottomRight: Radius.circular(27),
             ),
           ),
           actions: <Widget>[

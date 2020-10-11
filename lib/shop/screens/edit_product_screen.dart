@@ -104,8 +104,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
         appBar: AppBar(
           title: Text('Edit Product'),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(27),
+            borderRadius: BorderRadius.only(
+              bottomLeft:Radius.circular(27),
+              bottomRight:Radius.circular(27),
             ),
           ),
           actions: <Widget>[

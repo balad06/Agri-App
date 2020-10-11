@@ -1,6 +1,5 @@
-import 'package:agri_app/pages/picturesearch.dart';
+import 'package:agri_app/picture/picturesearch.dart';
 import 'package:flutter/material.dart';
-import '../alarm/screens/reminderpage.dart';
 import './login widgets/beziercontainer.dart';
 
 class LoginPage extends StatefulWidget {
@@ -93,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
           if (password == confirm) {
             Navigator.pushReplacementNamed(
               context,
-              ReminderPage.id,
+              PictureSearch.id,
             );
           } else {
             return showAlertDialog(context);

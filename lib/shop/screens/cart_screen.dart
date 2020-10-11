@@ -16,8 +16,10 @@ class CartScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text('Your Cart'),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(27),
+            borderRadius: BorderRadius.only(
+              bottomLeft:Radius.circular(27),
+              bottomRight:Radius.circular(27),
+
             ),
           ),
         ),

@@ -113,7 +113,7 @@ class WelcomePage extends StatelessWidget {
                           'New Here?   ',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.blueAccent, fontWeight: FontWeight.bold),
                         ),
                         InkWell(
                           onTap: () {
@@ -124,7 +124,7 @@ class WelcomePage extends StatelessWidget {
                             'Create Account',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

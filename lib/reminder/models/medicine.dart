@@ -1,23 +1,23 @@
-class Medicine {
+class Plant {
   final List<dynamic> notificationIDs;
-  final String medicineName;
+  final String plantName;
   final int dosage;
-  final String medicineType;
+  final String plantType;
   final int interval;
   final String startTime;
 
-  Medicine({
+  Plant({
     this.notificationIDs,
-    this.medicineName,
+    this.plantName,
     this.dosage,
-    this.medicineType,
+    this.plantType,
     this.startTime,
     this.interval,
   });
 
-  String get getName => medicineName;
+  String get getName => plantName;
   int get getDosage => dosage;
-  String get getType => medicineType;
+  String get getType => plantType;
   int get getInterval => interval;
   String get getStartTime => startTime;
   List<dynamic> get getIDs => notificationIDs;
@@ -25,20 +25,20 @@ class Medicine {
   Map<String, dynamic> toJson() {
     return {
       "ids": this.notificationIDs,
-      "name": this.medicineName,
+      "name": this.plantName,
       "dosage": this.dosage,
-      "type": this.medicineType,
+      "type": this.plantType,
       "interval": this.interval,
       "start": this.startTime,
     };
   }
 
-  factory Medicine.fromJson(Map<String, dynamic> parsedJson) {
-    return Medicine(
+  factory Plant.fromJson(Map<String, dynamic> parsedJson) {
+    return Plant(
       notificationIDs: parsedJson['ids'],
-      medicineName: parsedJson['name'],
+      plantName: parsedJson['name'],
       dosage: parsedJson['dosage'],
-      medicineType: parsedJson['type'],
+      plantType: parsedJson['type'],
       interval: parsedJson['interval'],
       startTime: parsedJson['start'],
     );

@@ -1,6 +1,10 @@
 import 'package:agri_app/picture/picturesearch.dart';
 import 'package:flutter/material.dart';
 import './login widgets/beziercontainer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class LoginPage extends StatefulWidget {
   static const String id = '/LoginPage';
@@ -12,7 +16,109 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String password;
   String confirm;
-  String ispass = 'cout123B';
+  bool isLoading = false;
+  String email;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = new GoogleSignIn();
+  DatabaseReference dbRef =
+      FirebaseDatabase.instance.reference().child("Users");
+
+  Future<String> signInWithGoogle() async {
+    await Firebase.initializeApp();
+
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
+    final User user = authResult.user;
+
+    if (user != null) {
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+
+      final User currentUser = _auth.currentUser;
+      assert(user.uid == currentUser.uid);
+
+      print('signInWithGoogle succeeded: $user');
+
+      return '$user';
+    }
+
+    return null;
+  }
+
+  Future<void> signOutGoogle() async {
+    await googleSignIn.signOut();
+
+    print("User Signed Out");
+  }
+
+  void logInToFb() {
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((result) {
+      isLoading = false;
+      Navigator.of(context).pushReplacementNamed(
+        PictureSearch.id,
+      );
+    }).catchError((err) {
+      print(err.message);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text(err.message),
+              actions: [
+                FlatButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
+  }
+
+  void registerToFb() {
+    _auth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((result) {
+      dbRef.child(result.user.uid).set({
+        "email": email,
+      }).then((res) {
+        isLoading = false;
+        Navigator.pushReplacementNamed(context, PictureSearch.id);
+      });
+    }).catchError((err) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text(err.message),
+              actions: [
+                FlatButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
+  }
+
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -49,6 +155,9 @@ class _LoginPageState extends State<LoginPage> {
                 if (title == 'Password') {
                   password = value;
                 }
+                if (title == 'Email Id') {
+                  email = value;
+                }
               },
               obscureText: isPassword,
               decoration: InputDecoration(
@@ -61,86 +170,64 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  showAlertDialog(BuildContext context) {
-    Widget continueButton = FlatButton(
-      child: Text("close"),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-
-    AlertDialog alert = AlertDialog(
-      title: Text("AlertDialog"),
-      content: Text('Error Login'),
-      actions: [
-        continueButton,
-      ],
-    );
-
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
   Widget _submitButton(String type) {
     if (type == 'Register') {
       return InkWell(
         onTap: () {
           if (password == confirm) {
-            Navigator.pushReplacementNamed(
-              context,
-              PictureSearch.id,
-            );
-          } else {
-            return showAlertDialog(context);
+            setState(() {
+              isLoading = true;
+            });
+            registerToFb();
           }
         },
-        child: Container(
-          height: 50,
-          width: MediaQuery.of(context).size.width * .45,
-          padding: EdgeInsets.symmetric(vertical: 15),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(100)),
-            color: Colors.blueAccent,
-          ),
-          child: Text(
-            '$type',
-            style: TextStyle(
-                fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-        ),
+        child: isLoading
+            ? CircularProgressIndicator()
+            : Container(
+                height: 50,
+                width: MediaQuery.of(context).size.width * .45,
+                padding: EdgeInsets.symmetric(vertical: 15),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(100)),
+                  color: Colors.blueAccent,
+                ),
+                child: Text(
+                  '$type',
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
       );
     } else {
       return InkWell(
         onTap: () {
-          if (password == ispass) {
-            Navigator.pushReplacementNamed(
-              context,
-              PictureSearch.id,
-            );
-          } else {
-            return showAlertDialog(context);
-          }
+          setState(() {
+            isLoading = true;
+          });
+          logInToFb();
         },
-        child: Container(
-          height: 50,
-          width: MediaQuery.of(context).size.width * .45,
-          padding: EdgeInsets.symmetric(vertical: 15),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(100)),
-            color: Colors.blueAccent,
-          ),
-          child: Text(
-            '$type',
-            style: TextStyle(
-                fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-        ),
+        child: isLoading
+            ? CircularProgressIndicator()
+            : Container(
+                height: 50,
+                width: MediaQuery.of(context).size.width * .45,
+                padding: EdgeInsets.symmetric(vertical: 15),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(100)),
+                  color: Colors.blueAccent,
+                ),
+                child: Text(
+                  '$type',
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
       );
     }
   }
@@ -240,6 +327,9 @@ class _LoginPageState extends State<LoginPage> {
                 }
                 if (title == 'Confirm Password') {
                   confirm = value;
+                }
+                if (title == 'Email Id') {
+                  email = value;
                 }
               },
             ),
@@ -374,10 +464,24 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: height * .05),
                     _submitButton(type),
                     _createAccountLabel(type),
+                    InkWell(
+                      onTap: () {
+                        signInWithGoogle().then((result) {
+                          if (result != null) {
+                            Navigator.of(context)
+                                .pushReplacementNamed(PictureSearch.id);
+                          }
+                        });
+                      },
+                      child: CircleAvatar(
+                        radius: 30,
+                        child: Image.asset('assets/images/googlelogo.png'),
+                      ),
+                    )
                   ],
                 ),
               ),
-            ),
+           ),
             Positioned(top: 40, left: 0, child: _backButton()),
           ],
         ),

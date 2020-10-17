@@ -72,6 +72,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 },
               ),
             ),
+            
           ],
         ),
         drawer: MainDrawer(),

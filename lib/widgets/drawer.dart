@@ -1,3 +1,4 @@
+import 'package:agri_app/login/loginscreen.dart';
 import 'package:agri_app/picture/picturesearch.dart';
 import 'package:agri_app/reminder/ui/homepage.dart';
 import 'package:agri_app/shop/screens/products_overview_screen.dart';
@@ -88,8 +89,11 @@ class MainDrawer extends StatelessWidget {
          buildTile('reminder', Icons.alarm, () {
           Navigator.of(context).pushReplacementNamed(HomePage.id);
         }),
-         buildTile('Exit', Icons.shop, () {
-          // Navigator.of(context).pushReplacementNamed(ProductsOverviewScreen.id);
+         buildTile('LogOut', Icons.shop, () {
+           Navigator.popUntil(
+          context,
+          ModalRoute.withName(LoginPage.id),
+        );
         }),
       ]),
     );

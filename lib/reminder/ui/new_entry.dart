@@ -209,8 +209,8 @@ class _NewEntryState extends State<NewEntry> {
                       if (dosageController.text != "") {
                         dosage = int.parse(dosageController.text);
                       }
-                      for (var medicine in _globalBloc.medicineList$.value) {
-                        if (medicineName == medicine.medicineName) {
+                      for (var medicine in _globalBloc.plantList$.value) {
+                        if (medicineName == medicine.plantName) {
                           _newEntryBloc.submitError(EntryError.NameDuplicate);
                           return;
                         }
@@ -237,11 +237,11 @@ class _NewEntryState extends State<NewEntry> {
                           .map((i) => i.toString())
                           .toList(); //for Shared preference
 
-                      Medicine newEntryMedicine = Medicine(
+                      Plant newEntryMedicine = Plant(
                         notificationIDs: notificationIDs,
-                        medicineName: medicineName,
+                        plantName: medicineName,
                         dosage: dosage,
-                        medicineType: medicineType,
+                        plantType: medicineType,
                         interval: interval,
                         startTime: startTime,
                       );
@@ -332,7 +332,7 @@ class _NewEntryState extends State<NewEntry> {
     );
   }
 
-  Future<void> scheduleNotification(Medicine medicine) async {
+  Future<void> scheduleNotification(Plant medicine) async {
     var hour = int.parse(medicine.startTime[0] + medicine.startTime[1]);
     var ogValue = hour;
     var minute = int.parse(medicine.startTime[2] + medicine.startTime[3]);
@@ -361,9 +361,9 @@ class _NewEntryState extends State<NewEntry> {
       }
       await flutterLocalNotificationsPlugin.zonedSchedule(
         int.parse(medicine.notificationIDs[i]),
-        'Mediminder: ${medicine.medicineName}',
-        medicine.medicineType.toString() != MedicineType.None.toString()
-            ? 'It is time to take your ${medicine.medicineType.toLowerCase()}, according to schedule'
+        'Mediminder: ${medicine.plantName}',
+        medicine.plantType.toString() != MedicineType.None.toString()
+            ? 'It is time to take your ${medicine.plantType.toLowerCase()}, according to schedule'
             : 'It is time to take your medicine, according to schedule',
         tz.TZDateTime.now(tz.local)
             .add(Duration(hours: hour, minutes: minute, seconds: 0)),

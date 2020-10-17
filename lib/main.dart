@@ -1,23 +1,25 @@
-import 'package:agri_app/reminder/global_bloc.dart';
-import 'package:agri_app/reminder/ui/homepage.dart';
-import 'package:agri_app/shop/screens/cart_screen.dart';
-import 'package:agri_app/shop/screens/edit_product_screen.dart';
-import 'package:agri_app/shop/screens/orders_screen.dart';
-import 'package:agri_app/login/loginscreen.dart';
-import 'package:agri_app/login/welcome.dart';
-import 'package:agri_app/shop/screens/products_overview_screen.dart';
-import 'package:agri_app/shop/screens/user_products_screen.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
+
+import 'reminder/ui/homepage.dart';
+import 'shop/screens/cart_screen.dart';
+import 'shop/screens/edit_product_screen.dart';
+import 'shop/screens/orders_screen.dart';
+import 'login/loginscreen.dart';
+import 'login/welcome.dart';
+import 'shop/screens/product_detail_screen.dart';
+import 'shop/screens/products_overview_screen.dart';
+import 'shop/screens/user_products_screen.dart';
 import 'reminder/global_bloc.dart';
 import './picture/picturesearch.dart';
 import './shop/providers/cart.dart';
 import './shop/providers/orders.dart';
 import './shop/providers/products.dart';
-import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:camera/camera.dart';
-// import 'home.dart';
 
 List<CameraDescription> cameras;
 
@@ -28,6 +30,8 @@ Future<Null> main() async {
   } on CameraException catch (e) {
     print('Error: $e.code\nError Message: $e.message');
   }
+   await Firebase.initializeApp();
+
   runApp(new MyApp());
 }
 // void main() {
@@ -81,6 +85,7 @@ class _MyAppState extends State<MyApp> {
           UserProductsScreen.id: (context) => UserProductsScreen(),
           EditProductScreen.id: (context) => EditProductScreen(),
           HomePage.id:(context) => HomePage(),
+          ProductDetailScreen.id :(context) => ProductDetailScreen(),
         },
       ),
     );

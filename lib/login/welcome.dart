@@ -10,12 +10,6 @@ class WelcomePage extends StatelessWidget {
         resizeToAvoidBottomPadding: false,
         body: Stack(
           children: <Widget>[
-            Image(
-              image: AssetImage('assets/images/agriculture.jpg'),
-              height: double.infinity,
-              width: MediaQuery.of(context).size.height,
-              fit: BoxFit.fitHeight,
-            ),
             Positioned(
               top: 200,
               left: -50,
@@ -55,6 +49,18 @@ class WelcomePage extends StatelessWidget {
                 ),
               ),
             ),
+             Positioned(
+              top: 200,right: -20,
+              child: Opacity(
+                opacity: .6,
+                child: Container(
+                  width: 150.0,
+                  height: 150.0,
+                  decoration:
+                      BoxDecoration(color: Colors.blueAccent, shape: BoxShape.circle),
+                ),
+              ),
+            ),
             Container(
               height: double.infinity,
               child: SingleChildScrollView(
@@ -74,7 +80,7 @@ class WelcomePage extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 42.0,
-                            color: Colors.white,
+                            color: Colors.lightGreen,
                             fontWeight: FontWeight.bold),
                       ),
                       padding: EdgeInsets.symmetric(horizontal: 35.0),
@@ -124,7 +130,7 @@ class WelcomePage extends StatelessWidget {
                             'Create Account',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.lightGreen,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -135,18 +141,6 @@ class WelcomePage extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Positioned(
-            //   child: Opacity(
-            //     opacity: .6,
-            //     child: Container(
-            //       width: 150.0,
-            //       height: 150.0,
-            //       decoration:
-            //           BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),

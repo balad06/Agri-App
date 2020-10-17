@@ -6,10 +6,10 @@ import 'package:provider/provider.dart';
 
 import '../global_bloc.dart';
 
-class MedicineDetails extends StatelessWidget {
-  final Medicine medicine;
+class PlantDetails extends StatelessWidget {
+  final Plant plant;
 
-  MedicineDetails(this.medicine);
+  PlantDetails(this.plant);
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +38,11 @@ class MedicineDetails extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              MainSection(medicine: medicine),
+              MainSection(plant: plant),
               SizedBox(
                 height: 15,
               ),
-              ExtendedSection(medicine: medicine),
+              ExtendedSection(plant: plant),
               Padding(
                 padding: EdgeInsets.only(
                   left: MediaQuery.of(context).size.height * 0.06,
@@ -60,7 +60,7 @@ class MedicineDetails extends StatelessWidget {
                     },
                     child: Center(
                       child: Text(
-                        "Delete Plsnminder",
+                        "Delete Planminder",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 22,
@@ -112,7 +112,7 @@ class MedicineDetails extends StatelessWidget {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () {
-                          _globalBloc.removeMedicine(medicine);
+                          _globalBloc.removePlant(plant);
                           Navigator.popUntil(
                             context,
                             ModalRoute.withName(HomePage.id),
@@ -175,44 +175,44 @@ class MedicineDetails extends StatelessWidget {
 
 
 class MainSection extends StatelessWidget {
-  final Medicine medicine;
+  final Plant plant;
 
   MainSection({
     Key key,
-    @required this.medicine,
+    @required this.plant,
   }) : super(key: key);
 
   Hero makeIcon(double size) {
-    if (medicine.medicineType == "Bottle") {
+    if (plant.plantType == "Bottle") {
       return Hero(
-        tag: medicine.medicineName + medicine.medicineType,
+        tag: plant.plantName + plant.plantType,
         child: Icon(
           IconData(0xe900, fontFamily: "Ic"),
           color: Color(0xFF3EB16F),
           size: size,
         ),
       );
-    } else if (medicine.medicineType == "Pill") {
+    } else if (plant.plantType == "Pill") {
       return Hero(
-        tag: medicine.medicineName + medicine.medicineType,
+        tag: plant.plantName + plant.plantType,
         child: Icon(
           IconData(0xe901, fontFamily: "Ic"),
           color: Color(0xFF3EB16F),
           size: size,
         ),
       );
-    } else if (medicine.medicineType == "Syringe") {
+    } else if (plant.plantType == "Syringe") {
       return Hero(
-        tag: medicine.medicineName + medicine.medicineType,
+        tag: plant.plantName + plant.plantType,
         child: Icon(
           IconData(0xe902, fontFamily: "Ic"),
           color: Color(0xFF3EB16F),
           size: size,
         ),
       );
-    } else if (medicine.medicineType == "Tablet") {
+    } else if (plant.plantType == "Tablet") {
       return Hero(
-        tag: medicine.medicineName + medicine.medicineType,
+        tag: plant.plantName + plant.plantType,
         child: Icon(
           IconData(0xe903, fontFamily: "Ic"),
           color: Color(0xFF3EB16F),
@@ -221,7 +221,7 @@ class MainSection extends StatelessWidget {
       );
     }
     return Hero(
-      tag: medicine.medicineName + medicine.medicineType,
+      tag: plant.plantName + plant.plantType,
       child: Icon(
         Icons.local_hospital,
         color: Color(0xFF3EB16F),
@@ -242,20 +242,20 @@ class MainSection extends StatelessWidget {
           Column(
             children: <Widget>[
               Hero(
-                tag: medicine.medicineName,
+                tag: plant.plantName,
                 child: Material(
                   color: Colors.transparent,
                   child: MainInfoTab(
-                    fieldTitle: "Medicine Name",
-                    fieldInfo: medicine.medicineName,
+                    fieldTitle: "Plant Name",
+                    fieldInfo: plant.plantName,
                   ),
                 ),
               ),
               MainInfoTab(
                 fieldTitle: "Dosage",
-                fieldInfo: medicine.dosage == 0
+                fieldInfo: plant.dosage == 0
                     ? "Not Specified"
-                    : medicine.dosage.toString() + " mg",
+                    : plant.dosage.toString() + " mg",
               )
             ],
           )
@@ -302,9 +302,9 @@ class MainInfoTab extends StatelessWidget {
 }
 
 class ExtendedSection extends StatelessWidget {
-  final Medicine medicine;
+  final Plant plant;
 
-  ExtendedSection({Key key, @required this.medicine}) : super(key: key);
+  ExtendedSection({Key key, @required this.plant}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -314,24 +314,24 @@ class ExtendedSection extends StatelessWidget {
         children: <Widget>[
           ExtendedInfoTab(
             fieldTitle: " Plant Requirment",
-            fieldInfo: medicine.medicineType == "None"
+            fieldInfo: plant.plantType == "None"
                 ? "Not Specified"
-                : medicine.medicineType,
+                : plant.plantType,
           ),
           ExtendedInfoTab(
             fieldTitle: "Dose Interval",
             fieldInfo: "Every " +
-                medicine.interval.toString() +
+                plant.interval.toString() +
                 " hours  | " +
-                " ${medicine.interval == 24 ? "One time a day" : (24 / medicine.interval).floor().toString() + " times a day"}",
+                " ${plant.interval == 24 ? "One time a day" : (24 / plant.interval).floor().toString() + " times a day"}",
           ),
           ExtendedInfoTab(
               fieldTitle: "Start Time",
-              fieldInfo: medicine.startTime[0] +
-                  medicine.startTime[1] +
+              fieldInfo: plant.startTime[0] +
+                  plant.startTime[1] +
                   ":" +
-                  medicine.startTime[2] +
-                  medicine.startTime[3]),
+                  plant.startTime[2] +
+                  plant.startTime[3]),
         ],
       ),
     );

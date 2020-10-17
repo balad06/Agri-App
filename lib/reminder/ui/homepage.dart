@@ -117,8 +117,8 @@ class TopContainer extends StatelessWidget {
               ),
             ),
           ),
-          StreamBuilder<List<Medicine>>(
-            stream: globalBloc.medicineList$,
+          StreamBuilder<List<Plant>>(
+            stream: globalBloc.plantList$,
             builder: (context, snapshot) {
               return Padding(
                 padding: EdgeInsets.only(top: 16.0, bottom: 5),
@@ -145,8 +145,8 @@ class BottomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalBloc _globalBloc = Provider.of<GlobalBloc>(context);
-    return StreamBuilder<List<Medicine>>(
-      stream: _globalBloc.medicineList$,
+    return StreamBuilder<List<Plant>>(
+      stream: _globalBloc.plantList$,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Container();
@@ -173,7 +173,7 @@ class BottomContainer extends StatelessWidget {
                   SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
-                return MedicineCard(snapshot.data[index]);
+                return PlantCard(snapshot.data[index]);
               },
             ),
           );
@@ -183,42 +183,42 @@ class BottomContainer extends StatelessWidget {
   }
 }
 
-class MedicineCard extends StatelessWidget {
-  final Medicine medicine;
+class PlantCard extends StatelessWidget {
+  final Plant plant;
 
-  MedicineCard(this.medicine);
+  PlantCard(this.plant);
 
   Hero makeIcon(double size) {
-    if (medicine.medicineType == "Bottle") {
+    if (plant.plantType == "Bottle") {
       return Hero(
-        tag: medicine.medicineName + medicine.medicineType,
+        tag: plant.plantName + plant.plantType,
         child: Icon(
           Icons.bug_report,
           color: Colors.lightGreen,
           size: size,
         ),
       );
-    } else if (medicine.medicineType == "Pill") {
+    } else if (plant.plantType == "Pill") {
       return Hero(
-        tag: medicine.medicineName + medicine.medicineType,
+        tag: plant.plantName + plant.plantType,
         child: Icon(
            Icons.bug_report,
           color: Colors.lightGreen,
           size: size,
         ),
       );
-    } else if (medicine.medicineType == "Syringe") {
+    } else if (plant.plantType == "Syringe") {
       return Hero(
-        tag: medicine.medicineName + medicine.medicineType,
+        tag: plant.plantName + plant.plantType,
         child: Icon(
           Icons.developer_mode,
           color: Colors.lightGreen,
           size: size,
         ),
       );
-    } else if (medicine.medicineType == "Tablet") {
+    } else if (plant.plantType == "Tablet") {
       return Hero(
-        tag: medicine.medicineName + medicine.medicineType,
+        tag: plant.plantName + plant.plantType,
         child: Icon(
           Icons.bug_report,
           color: Colors.lightGreen,
@@ -227,7 +227,7 @@ class MedicineCard extends StatelessWidget {
       );
     }
     return Hero(
-      tag: medicine.medicineName + medicine.medicineType,
+      tag: plant.plantName + plant.plantType,
       child: Icon(
         Icons.error,
         color: Colors.lightGreen,
@@ -253,7 +253,7 @@ class MedicineCard extends StatelessWidget {
                     builder: (BuildContext context, Widget child) {
                       return Opacity(
                         opacity: animation.value,
-                        child: MedicineDetails(medicine),
+                        child: PlantDetails(plant),
                       );
                     });
               },
@@ -272,11 +272,11 @@ class MedicineCard extends StatelessWidget {
               children: <Widget>[
                 makeIcon(50.0),
                 Hero(
-                  tag: medicine.medicineName,
+                  tag: plant.plantName,
                   child: Material(
                     color: Colors.transparent,
                     child: Text(
-                      medicine.medicineName,
+                      plant.plantName,
                       style: TextStyle(
                           fontSize: 22,
                           color: Color(0xFF3EB16F),
@@ -285,9 +285,9 @@ class MedicineCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  medicine.interval == 1
-                      ? "Every " + medicine.interval.toString() + " hour"
-                      : "Every " + medicine.interval.toString() + " hours",
+                  plant.interval == 1
+                      ? "Every " + plant.interval.toString() + " hour"
+                      : "Every " + plant.interval.toString() + " hours",
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.lightGreen,

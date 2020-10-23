@@ -1,3 +1,4 @@
+import 'package:agri_app/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,17 +24,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-          child: Scaffold(
-        appBar: AppBar(
-          title: Text('MyShop'),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft:Radius.circular(27),
-              bottomRight: Radius.circular(27),
-            ),
-          ),
-          actions: <Widget>[
+    return  Scaffold(
+        appBar: Topbar('Plant Shop', <Widget>[
             PopupMenuButton(
               onSelected: (FilterOptions selectedValue) {
                 setState(() {
@@ -73,11 +65,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               ),
             ),
             
-          ],
-        ),
+          ],),
         drawer: MainDrawer(),
         body: ProductsGrid(_showOnlyFavorites),
-      ),
     );
   }
 }

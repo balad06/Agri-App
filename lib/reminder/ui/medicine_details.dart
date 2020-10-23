@@ -20,7 +20,7 @@ class PlantDetails extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color: Color(0xFF3EB16F),
+          color: Colors.lightGreen,
         ),
         centerTitle: true,
         title: Text(
@@ -53,14 +53,14 @@ class PlantDetails extends StatelessWidget {
                   width: 220,
                   height: 50,
                   child: FlatButton(
-                    color: Color(0xFF3EB16F),
+                    color: Colors.lightGreen,
                     shape: StadiumBorder(),
                     onPressed: () {
                       openAlertBox(context, _globalBloc);
                     },
                     child: Center(
                       child: Text(
-                        "Delete Planminder",
+                        "Delete",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 22,
@@ -183,39 +183,39 @@ class MainSection extends StatelessWidget {
   }) : super(key: key);
 
   Hero makeIcon(double size) {
-    if (plant.plantType == "Bottle") {
+    if (plant.plantType == "water") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
-          IconData(0xe900, fontFamily: "Ic"),
-          color: Color(0xFF3EB16F),
+          Icons.ac_unit,
+          color: Colors.lightGreen,
           size: size,
         ),
       );
-    } else if (plant.plantType == "Pill") {
+    } else if (plant.plantType == "fertilizer") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
-          IconData(0xe901, fontFamily: "Ic"),
-          color: Color(0xFF3EB16F),
+          Icons.album,
+          color: Colors.lightGreen,
           size: size,
         ),
       );
-    } else if (plant.plantType == "Syringe") {
+    } else if (plant.plantType == "bugz") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
-          IconData(0xe902, fontFamily: "Ic"),
-          color: Color(0xFF3EB16F),
+          Icons.bug_report,
+          color: Colors.lightGreen,
           size: size,
         ),
       );
-    } else if (plant.plantType == "Tablet") {
+    } else if (plant.plantType == "diffrent") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
-          IconData(0xe903, fontFamily: "Ic"),
-          color: Color(0xFF3EB16F),
+          Icons.developer_mode,
+          color: Colors.lightGreen,
           size: size,
         ),
       );
@@ -224,7 +224,7 @@ class MainSection extends StatelessWidget {
       tag: plant.plantName + plant.plantType,
       child: Icon(
         Icons.local_hospital,
-        color: Color(0xFF3EB16F),
+        color: Colors.lightGreen,
         size: size,
       ),
     );
@@ -292,7 +292,7 @@ class MainInfoTab extends StatelessWidget {
             fieldInfo,
             style: TextStyle(
                 fontSize: 24,
-                color: Color(0xFF3EB16F),
+                color: Colors.lightGreen,
                 fontWeight: FontWeight.bold),
           ),
         ],

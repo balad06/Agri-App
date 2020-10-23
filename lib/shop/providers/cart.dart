@@ -22,7 +22,11 @@ class Cart with ChangeNotifier {
   }
 
   int get itemCount {
-    return _items.length;
+    int total = 0;
+    _items.forEach((key, cartItem) {
+      total += cartItem.quantity;
+    });
+    return total;
   }
 
   double get totalAmount {
@@ -33,33 +37,41 @@ class Cart with ChangeNotifier {
     return total;
   }
 
-  void addItem(
-    String productId,
-    double price,
-    String title,
-  ) {
+  void addItem(String productId, double price, String title) {
     if (_items.containsKey(productId)) {
-      // change quantity...
       _items.update(
         productId,
         (existingCartItem) => CartItem(
-              id: existingCartItem.id,
-              title: existingCartItem.title,
-              price: existingCartItem.price,
-              quantity: existingCartItem.quantity + 1,
-            ),
+            id: existingCartItem.id,
+            title: existingCartItem.title,
+            price: existingCartItem.price,
+            quantity: existingCartItem.quantity + 1),
       );
     } else {
       _items.putIfAbsent(
         productId,
         () => CartItem(
-              id: DateTime.now().toString(),
-              title: title,
-              price: price,
-              quantity: 1,
-            ),
+            id: DateTime.now().toString(),
+            title: title,
+            price: price,
+            quantity: 1),
       );
     }
+    notifyListeners();
+  }
+
+  void removeone(String productId) {
+     if(_items[productId].quantity>1){
+     _items.update(
+        productId,
+        (existingCartItem) => CartItem(
+                id: existingCartItem.id,
+                title: existingCartItem.title,
+                price: existingCartItem.price,
+                quantity: existingCartItem.quantity-1,
+              ));}
+            else
+              _items.remove(productId);
     notifyListeners();
   }
 
@@ -67,28 +79,8 @@ class Cart with ChangeNotifier {
     _items.remove(productId);
     notifyListeners();
   }
-
-  void removeSingleItem(String productId) {
-    if (!_items.containsKey(productId)) {
-      return;
-    }
-    if (_items[productId].quantity > 1) {
-      _items.update(
-          productId,
-          (existingCartItem) => CartItem(
-                id: existingCartItem.id,
-                title: existingCartItem.title,
-                price: existingCartItem.price,
-                quantity: existingCartItem.quantity - 1,
-              ));
-    } else {
-      _items.remove(productId);
-    }
-    notifyListeners();
-  }
-
-  void clear() {
-    _items = {};
+  void clear(){
+    _items ={};
     notifyListeners();
   }
 }

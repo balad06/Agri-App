@@ -1,3 +1,4 @@
+import 'package:agri_app/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,16 +14,7 @@ class CartScreen extends StatelessWidget {
     final cart = Provider.of<Cart>(context);
     return SafeArea(
           child: Scaffold(
-        appBar: AppBar(
-          title: Text('Your Cart'),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft:Radius.circular(27),
-              bottomRight:Radius.circular(27),
-
-            ),
-          ),
-        ),
+        appBar:Topbar('Cart', []),
         body: Column(
           children: <Widget>[
             Card(

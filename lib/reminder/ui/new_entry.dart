@@ -122,31 +122,31 @@ class _NewEntryState extends State<NewEntry> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         MedicineTypeColumn(
-                            type: MedicineType.Water,
+                            type: MedicineType.Bottle,
                             name: "water",
                             iconValue: Icons.ac_unit,
-                            isSelected: snapshot.data == MedicineType.Water
+                            isSelected: snapshot.data == MedicineType.Bottle
                                 ? true
                                 : false),
                         MedicineTypeColumn(
-                            type: MedicineType.Fertilizer,
+                            type: MedicineType.Pill,
                             name: "fertilizers",
                             iconValue: Icons.album,
-                            isSelected: snapshot.data == MedicineType.Fertilizer
+                            isSelected: snapshot.data == MedicineType.Pill
                                 ? true
                                 : false),
                         MedicineTypeColumn(
-                            type: MedicineType.Bugz,
+                            type: MedicineType.Syringe,
                             name: "bugz",
                             iconValue: Icons.bug_report,
-                            isSelected: snapshot.data == MedicineType.Bugz
+                            isSelected: snapshot.data == MedicineType.Syringe
                                 ? true
                                 : false),
                         MedicineTypeColumn(
-                            type: MedicineType.None,
+                            type: MedicineType.Tablet,
                             name: "diffrent",
                             iconValue: Icons.developer_mode,
-                            isSelected: snapshot.data == MedicineType.None
+                            isSelected: snapshot.data == MedicineType.Tablet
                                 ? true
                                 : false),
                       ],
@@ -158,6 +158,7 @@ class _NewEntryState extends State<NewEntry> {
                 title: "Interval Selection",
                 isRequired: true,
               ),
+              //ScheduleCheckBoxes(),
               IntervalSelection(),
               PanelTitle(
                 title: "Starting Time",
@@ -192,6 +193,9 @@ class _NewEntryState extends State<NewEntry> {
                     onPressed: () {
                       String medicineName;
                       int dosage;
+                      //--------------------Error Checking------------------------
+                      //Had to do error checking in UI
+                      //Due to unoptimized BLoC value-grabbing architecture
                       if (nameController.text == "") {
                         _newEntryBloc.submitError(EntryError.NameNull);
                         return;
@@ -359,8 +363,8 @@ class _NewEntryState extends State<NewEntry> {
         int.parse(medicine.notificationIDs[i]),
         'Mediminder: ${medicine.plantName}',
         medicine.plantType.toString() != MedicineType.None.toString()
-            ? 'It is time to take your plant, according to schedule'
-            : 'It is time to take care of youre plant, according to schedule',
+            ? 'It is time to take your ${medicine.plantType.toLowerCase()}, according to schedule'
+            : 'It is time to take your medicine, according to schedule',
         tz.TZDateTime.now(tz.local)
             .add(Duration(hours: hour, minutes: minute, seconds: 0)),
         platformChannelSpecifics,

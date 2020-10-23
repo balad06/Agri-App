@@ -1,4 +1,3 @@
-import 'package:agri_app/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,13 +11,23 @@ class OrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orderData = Provider.of<Orders>(context);
-    return Scaffold(
-        appBar: Topbar('Orders', []),
+    return SafeArea(
+          child: Scaffold(
+        appBar: AppBar(
+          title: Text('Your Orders'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft:Radius.circular(27),
+              bottomRight:Radius.circular(27),
+            ),
+          ),
+        ),
         drawer: MainDrawer(),
         body: ListView.builder(
           itemCount: orderData.orders.length,
           itemBuilder: (ctx, i) => OrderItem(orderData.orders[i]),
         ),
+      ),
     );
   }
 }

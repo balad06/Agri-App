@@ -1,6 +1,7 @@
 enum MedicineType {
-  Water,
-  Bugz,
-  Fertilizer,
+  Bottle,
+  Pill,
+  Syringe,
+  Tablet,
   None,
 }

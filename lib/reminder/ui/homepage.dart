@@ -189,16 +189,16 @@ class PlantCard extends StatelessWidget {
   PlantCard(this.plant);
 
   Hero makeIcon(double size) {
-    if (plant.plantType == "water") {
+    if (plant.plantType == "Bottle") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
-          Icons.ac_unit,
+          Icons.bug_report,
           color: Colors.lightGreen,
           size: size,
         ),
       );
-    } else if (plant.plantType == "bugz") {
+    } else if (plant.plantType == "Pill") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
@@ -207,20 +207,20 @@ class PlantCard extends StatelessWidget {
           size: size,
         ),
       );
-    } else if (plant.plantType == "fertilizers") {
-      return Hero(
-        tag: plant.plantName + plant.plantType,
-        child: Icon(
-          Icons.album,
-          color: Colors.lightGreen,
-          size: size,
-        ),
-      );
-    } else if (plant.plantType == "diffrent") {
+    } else if (plant.plantType == "Syringe") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
           Icons.developer_mode,
+          color: Colors.lightGreen,
+          size: size,
+        ),
+      );
+    } else if (plant.plantType == "Tablet") {
+      return Hero(
+        tag: plant.plantName + plant.plantType,
+        child: Icon(
+          Icons.bug_report,
           color: Colors.lightGreen,
           size: size,
         ),
@@ -279,7 +279,7 @@ class PlantCard extends StatelessWidget {
                       plant.plantName,
                       style: TextStyle(
                           fontSize: 22,
-                          color: Colors.lightGreen,
+                          color: Color(0xFF3EB16F),
                           fontWeight: FontWeight.w500),
                     ),
                   ),

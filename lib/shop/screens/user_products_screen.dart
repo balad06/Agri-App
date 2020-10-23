@@ -5,7 +5,6 @@ import '../providers/products.dart';
 import '../widgets/user_product_item.dart';
 import 'package:agri_app/widgets/drawer.dart';
 import './edit_product_screen.dart';
-import 'package:agri_app/widgets/appbar.dart';
 
 class UserProductsScreen extends StatelessWidget {
   static const id = '/user-products';
@@ -13,15 +12,25 @@ class UserProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productsData = Provider.of<Products>(context);
-    return  Scaffold(
-        appBar:Topbar('Your Products',  [
+    return SafeArea(
+          child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Your Products'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft:Radius.circular(27),
+              bottomRight: Radius.circular(27),
+            ),
+          ),
+          actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.add),
               onPressed: () {
                 Navigator.of(context).pushNamed(EditProductScreen.id);
               },
             ),
-          ],),
+          ],
+        ),
         drawer: MainDrawer(),
         body: Padding(
           padding: EdgeInsets.all(8),
@@ -39,6 +48,7 @@ class UserProductsScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
     );
   }
 }

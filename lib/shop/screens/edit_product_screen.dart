@@ -102,7 +102,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
     return SafeArea(
           child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
           title: Text('Edit Product'),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(

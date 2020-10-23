@@ -90,9 +90,9 @@ class MainDrawer extends StatelessWidget {
           Navigator.of(context).pushReplacementNamed(HomePage.id);
         }),
          buildTile('LogOut', Icons.shop, () {
-           Navigator.pushReplacementNamed(
+           Navigator.popUntil(
           context,
-        LoginPage.id,
+          ModalRoute.withName(LoginPage.id),
         );
         }),
       ]),

@@ -1,4 +1,3 @@
-import 'package:agri_app/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +20,15 @@ class ProductDetailScreen extends StatelessWidget {
     ).findById(productId);
     return SafeArea(
           child: Scaffold(
-        appBar: Topbar(loadedProduct.title, []),
+        appBar: AppBar(
+          title: Text(loadedProduct.title),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft:Radius.circular(27),
+              bottomRight:Radius.circular(27),
+            ),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[

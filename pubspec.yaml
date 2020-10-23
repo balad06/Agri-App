@@ -28,8 +28,6 @@ dependencies:
   http: any
   shared_preferences: any
   sqflite: any
-  camera: any
-  tflite: any
   rxdart: any
   flutter_local_notifications:
   flare_flutter:
@@ -42,6 +40,10 @@ dependencies:
   google_sign_in: any
   firebase_core: any
   firebase_database: any
+  image_picker: any
+  firebase_ml_vision: any
+  camera: any
+  tflite: any
   
 
   # The following adds the Cupertino Icons font to your application.
@@ -69,8 +71,6 @@ flutter:
     - assets/images/agriculture.jpg
     - assets/images/logo.png
     - assets/images/googlelogo.png
-    - assets/mobilenet_v1_1.0_224_quant.tflite
-    - assets/labels_mobilenet_quant_v1_224.txt
     - assets/animations/Success Check.flr
   #   - images/a_dot_ham.jpeg
 

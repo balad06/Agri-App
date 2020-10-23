@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'httpexception.dart';
-import 'package:agri_app/constant.dart';
 class Auth with ChangeNotifier {
   String _token;
   DateTime _expiryDate;
@@ -37,7 +36,7 @@ Future<void> resetPassword(String email) async {
   Future<void> _authentication(
       String email, String password, urlSegment) async {
     final url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=$loginkey';
+        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyCa2f4WGdpuo-IPAufzyTqCpOaCc1AVK88';
     final response = await http.post(
       url,
       body: json.encode(

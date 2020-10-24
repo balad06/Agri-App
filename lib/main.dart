@@ -6,30 +6,27 @@ import 'package:provider/provider.dart';
 import 'login/auth.dart';
 import 'reminder/ui/homepage.dart';
 import 'shop/screens/cart_screen.dart';
-import 'shop/screens/edit_product_screen.dart';
 import 'shop/screens/orders_screen.dart';
 import 'login/loginscreen.dart';
 import 'login/welcome.dart';
-import 'shop/screens/product_detail_screen.dart';
-import 'shop/screens/products_overview_screen.dart';
-import 'shop/screens/user_products_screen.dart';
 import 'reminder/global_bloc.dart';
 import './picture/picturesearch.dart';
 import './shop/providers/cart.dart';
-import './shop/providers/orders.dart';
 import './shop/providers/products.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'shop/screens/editing_products_screen.dart';
+import 'shop/screens/product_details_screen.dart';
+import 'shop/providers/order.dart';
+import 'shop/screens/product_screen.dart';
+import 'shop/screens/users_products_screen.dart';
 
 Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Provider.debugCheckInvalidValueType = null;
    await Firebase.initializeApp();
 
   runApp(new MyApp());
 }
-// void main() {
-//   runApp(MyApp());
-// }
 
 class MyApp extends StatefulWidget {
   @override
@@ -90,8 +87,8 @@ class _MyAppState extends State<MyApp> {
             PictureSearch.id: (context) => PictureSearch(),
             CartScreen.id: (context) => CartScreen(),
             OrdersScreen.id: (context) => OrdersScreen(),
-            ProductsOverviewScreen.id: (context) => ProductsOverviewScreen(),
-            UserProductsScreen.id: (context) => UserProductsScreen(),
+            ProductOverviewscreen.id: (context) => ProductOverviewscreen(),
+            UsersProductsScreen.id: (context) => UsersProductsScreen(),
             EditProductScreen.id: (context) => EditProductScreen(),
             HomePage.id:(context) => HomePage(),
             ProductDetailScreen.id :(context) => ProductDetailScreen(),

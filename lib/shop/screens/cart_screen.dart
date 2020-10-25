@@ -1,9 +1,10 @@
+import 'package:agri_app/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/cart_item.dart' as ci;
-import '../providers/cart.dart';
-import '../providers/order.dart';
+import '../providers/cart.dart' show Cart;
+import '../widgets/cart_item.dart';
+import '../providers/orders.dart';
 
 class CartScreen extends StatelessWidget {
   static const id = '/cart';
@@ -12,7 +13,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
     return Scaffold(
-      appBar: AppBar(title: Text('Cart')),
+      appBar: Topbar('Cart', []),
       body: Column(
         children: <Widget>[
           Card(
@@ -22,76 +23,50 @@ class CartScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Total'),
+                  Text(
+                    'Total',
+                    style: TextStyle(fontSize: 20),
+                  ),
                   Spacer(),
                   Chip(
                     label: Text(
-                      ' ₹${cart.totalAmount.toStringAsFixed(2)}',
-                      style: TextStyle(color: Colors.white),
+                      '\$${cart.totalAmount.toStringAsFixed(2)}',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryTextTheme.headline6.color,
+                      ),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
-                  OrderButton(cart: cart)
+                  FlatButton(
+                    child: Text('ORDER NOW'),
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                        cart.items.values.toList(),
+                        cart.totalAmount,
+                      );
+                      cart.clear();
+                    },
+                    textColor: Theme.of(context).primaryColor,
+                  )
                 ],
               ),
             ),
-          ), 
-          SizedBox(
-            height: 10,
           ),
+          SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
-              itemBuilder: (ctx, i) => ci.CartItem(
-                  id: cart.items.values.toList()[i].id,
-                  productId: cart.items.keys.toList()[i],
-                  title: cart.items.values.toList()[i].title,
-                  price: cart.items.values.toList()[i].price,
-                  quantity: cart.items.values.toList()[i].quantity),
               itemCount: cart.items.length,
+              itemBuilder: (ctx, i) => CartItem(
+                    cart.items.values.toList()[i].id,
+                    cart.items.keys.toList()[i],
+                    cart.items.values.toList()[i].price,
+                    cart.items.values.toList()[i].quantity,
+                    cart.items.values.toList()[i].title,
+                  ),
             ),
-          ),
+          )
         ],
       ),
-    );
-  }
-}
-
-class OrderButton extends StatefulWidget {
-  const OrderButton({
-    Key key,
-    @required this.cart,
-  }) : super(key: key);
-
-  final Cart cart;
-
-  @override
-  _OrderButtonState createState() => _OrderButtonState();
-}
-
-class _OrderButtonState extends State<OrderButton> {
-  var _isloading =false;
-
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: (widget.cart.totalAmount<=0 || _isloading)? null:() async{
-        setState(() {
-          _isloading = true;
-        });
-        await Provider.of<Orders>(context, listen: false).addOrder(
-            widget.cart.items.values.toList(),
-            widget.cart.totalAmount
-            );
-            setState(() {
-              _isloading=false;
-            });
-        widget.cart.clear();
-      },
-      child: _isloading? CircularProgressIndicator(): Text(
-        'Order Now',
-        style: TextStyle(color: Theme.of(context).primaryColor),
-      ),
-      color: Colors.white,
     );
   }
 }

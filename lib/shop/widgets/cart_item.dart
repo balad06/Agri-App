@@ -10,12 +10,18 @@ class CartItem extends StatelessWidget {
   final int quantity;
   final String title;
 
-  CartItem({this.id, this.productId, this.title, this.quantity, this.price});
+  CartItem(
+    this.id,
+    this.productId,
+    this.price,
+    this.quantity,
+    this.title,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Dismissible(
       key: ValueKey(id),
-      direction: DismissDirection.endToStart,
       background: Container(
         color: Theme.of(context).errorColor,
         child: Icon(
@@ -30,6 +36,32 @@ class CartItem extends StatelessWidget {
           vertical: 4,
         ),
       ),
+      direction: DismissDirection.endToStart,
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+                title: Text('Are you sure?'),
+                content: Text(
+                  'Do you want to remove the item from the cart?',
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('No'),
+                    onPressed: () {
+                      Navigator.of(ctx).pop(false);
+                    },
+                  ),
+                  FlatButton(
+                    child: Text('Yes'),
+                    onPressed: () {
+                      Navigator.of(ctx).pop(true);
+                    },
+                  ),
+                ],
+              ),
+        );
+      },
       onDismissed: (direction) {
         Provider.of<Cart>(context, listen: false).removeItem(productId);
       },
@@ -45,22 +77,13 @@ class CartItem extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(5),
                 child: FittedBox(
-                  child: Text(' ₹ $price'),
+                  child: Text('\$$price'),
                 ),
               ),
             ),
             title: Text(title),
-            subtitle:
-                Text('Total:  ₹${price * quantity} Quantity: $quantity X'),
-            trailing: IconButton(
-              icon: Icon(
-                Icons.delete,
-                color: Colors.red,
-              ),
-              onPressed: () {
-                 Provider.of<Cart>(context, listen: false).removeone(productId);
-              },
-            ),
+            subtitle: Text('Total: \$${(price * quantity)}'),
+            trailing: Text('$quantity x'),
           ),
         ),
       ),

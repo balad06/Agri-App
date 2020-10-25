@@ -146,7 +146,7 @@ class _NewEntryState extends State<NewEntry> {
                             type: MedicineType.None,
                             name: "diffrent",
                             iconValue: Icons.developer_mode,
-                            isSelected: snapshot.data == MedicineType.None
+                            isSelected: snapshot.data == MedicineType.Different
                                 ? true
                                 : false),
                       ],
@@ -219,7 +219,6 @@ class _NewEntryState extends State<NewEntry> {
                         _newEntryBloc.submitError(EntryError.StartTime);
                         return;
                       }
-                      //---------------------------------------------------------
                       String medicineType = _newEntryBloc
                           .selectedMedicineType.value
                           .toString()
@@ -233,7 +232,7 @@ class _NewEntryState extends State<NewEntry> {
                           .map((i) => i.toString())
                           .toList(); //for Shared preference
 
-                      Plant newEntryMedicine = Plant(
+                      Plant newEntryPlant = Plant(
                         notificationIDs: notificationIDs,
                         plantName: medicineName,
                         dosage: dosage,
@@ -242,8 +241,8 @@ class _NewEntryState extends State<NewEntry> {
                         startTime: startTime,
                       );
 
-                      _globalBloc.updateMedicineList(newEntryMedicine);
-                      scheduleNotification(newEntryMedicine);
+                      _globalBloc.updateMedicineList(newEntryPlant);
+                      scheduleNotification(newEntryPlant);
 
                       Navigator.pushReplacement(
                         context,
@@ -544,7 +543,6 @@ class MedicineTypeColumn extends StatelessWidget {
                 child: 
                 Icon(
                   iconValue,
-                  // IconData(iconValue),
                   size: 25,
                   color: isSelected ? Colors.white :Colors.lightGreen,
                 ),

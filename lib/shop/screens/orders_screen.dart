@@ -1,38 +1,24 @@
+import 'package:agri_app/widgets/appbar.dart';
 import 'package:agri_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/order.dart';
+import '../providers/orders.dart' show Orders;
 import '../widgets/order_item.dart';
 
 class OrdersScreen extends StatelessWidget {
-  static const id = 'Order-Screen';
+  static const id = '/orders';
+
   @override
   Widget build(BuildContext context) {
-    //final orderData = Provider.of<Orders>(context);
+    final orderData = Provider.of<Orders>(context);
     return Scaffold(
-        appBar: AppBar(
-          title: Text('You\'re Orders'),
-        ),
-        drawer: MainDrawer(),
-        body: FutureBuilder(
-          future:
-              Provider.of<Orders>(context, listen: false).fetechAndSetOrders(),
-          builder: (ctx, dataSnapshot) {
-            if (dataSnapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              if (dataSnapshot.error != null) {
-                return Center(child: Text('Error'));
-              } else {
-                return Consumer<Orders>(builder:(ctx,orderData,child) => ListView.builder(
-                    itemBuilder: (ctx, i) => OrderItems(orderData.orders[i]),
-                    itemCount: orderData.orders.length),);
-              }
-            }
-          },
-        ));
+      appBar: Topbar('Orders', []),
+      drawer: MainDrawer(),
+      body: ListView.builder(
+        itemCount: orderData.orders.length,
+        itemBuilder: (ctx, i) => OrderItem(orderData.orders[i]),
+      ),
+    );
   }
 }

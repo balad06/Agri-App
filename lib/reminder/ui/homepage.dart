@@ -1,4 +1,5 @@
 import 'package:agri_app/reminder/global_bloc.dart';
+import 'package:agri_app/widgets/appbar.dart';
 import 'package:agri_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:agri_app/reminder/models/medicine.dart';
@@ -20,49 +21,46 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final GlobalBloc _globalBloc = Provider.of<GlobalBloc>(context);
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.lightGreen,
-          elevation: 0.0,
+    return Scaffold(
+      appBar: Topbar('Reminder', []),
+      drawer: MainDrawer(),
+      body: Container(
+        // color: Colors.lightGreen,
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 20,),
+            Flexible(
+              flex: 3,
+              child: TopContainer(),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Flexible(
+              flex: 7,
+              child: Provider<GlobalBloc>.value(
+                child: BottomContainer(),
+                value: _globalBloc,
+              ),
+            ),
+          ],
         ),
-        drawer: MainDrawer(),
-        body: Container(
-          // color: Colors.lightGreen,
-          child: Column(
-            children: <Widget>[
-              Flexible(
-                flex: 3,
-                child: TopContainer(),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Flexible(
-                flex: 7,
-                child: Provider<GlobalBloc>.value(
-                  child: BottomContainer(),
-                  value: _globalBloc,
-                ),
-              ),
-            ],
-          ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 4,
+        backgroundColor: Colors.lightGreen,
+        child: Icon(
+          Icons.add,
+          color: Colors.black,
         ),
-        floatingActionButton: FloatingActionButton(
-          elevation: 4,
-          backgroundColor: Colors.lightGreen,
-          child: Icon(
-            Icons.add,
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => NewEntry(),
-              ),
-            );
-          },
-        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NewEntry(),
+            ),
+          );
+        },
       ),
     );
   }
@@ -73,46 +71,29 @@ class TopContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalBloc globalBloc = Provider.of<GlobalBloc>(context);
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.elliptical(50, 27),
-          bottomRight: Radius.elliptical(50, 27),
-        ),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 5,
-            color: Colors.grey[400],
-            offset: Offset(0, 3.5),
-          )
-        ],
-        color: Colors.lightGreen,
-      ),
       width: double.infinity,
       child: Column(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(
-              bottom: 10,
-            ),
-            child: Text(
-              "Planminder",
-              style: TextStyle(
-                fontSize: 40,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          Divider(
-            color: Color(0xFFB0F3CB),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(
+          //     bottom: 10,
+          //   ),
+          //   child: Text(
+          //     "Planminder",
+          //     style: TextStyle(
+          //       fontSize: 40,
+          //       color: Colors.white,
+          //     ),
+          //   ),
+          // ),
           Padding(
             padding: EdgeInsets.only(top: 12.0),
             child: Center(
               child: Text(
                 "Number of Planminders",
                 style: TextStyle(
-                  fontSize: 17,
-                  color: Colors.white,
+                  fontSize: 21,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -126,9 +107,9 @@ class TopContainer extends StatelessWidget {
                   child: Text(
                     !snapshot.hasData ? '0' : snapshot.data.length.toString(),
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 26,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -202,7 +183,7 @@ class PlantCard extends StatelessWidget {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
-           Icons.bug_report,
+          Icons.bug_report,
           color: Colors.lightGreen,
           size: size,
         ),

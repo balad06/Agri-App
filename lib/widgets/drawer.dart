@@ -2,9 +2,9 @@ import 'package:agri_app/login/loginscreen.dart';
 import 'package:agri_app/picture/picturesearch.dart';
 import 'package:agri_app/reminder/ui/homepage.dart';
 import 'package:flutter/material.dart';
-import 'package:agri_app/shop/screens/product_screen.dart';
+import 'package:agri_app/shop/screens/products_overview_screen.dart';
 import '../shop/screens/orders_screen.dart';
-import 'package:agri_app/shop/screens/users_products_screen.dart';
+import 'package:agri_app/shop/screens/user_products_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   Widget buildTile(String name, IconData icon, Function onTap) {
@@ -71,7 +71,7 @@ class MainDrawer extends StatelessWidget {
           Navigator.of(context).pushReplacementNamed(PictureSearch.id);
         }),
         buildTile('Shop', Icons.shop, () {
-          Navigator.of(context).pushReplacementNamed(ProductOverviewscreen.id);
+          Navigator.of(context).pushReplacementNamed(ProductsOverviewScreen.id);
         }),
         subTile(
           'Orders',
@@ -82,7 +82,7 @@ class MainDrawer extends StatelessWidget {
         subTile(
           'Edit Products',
           () {
-            Navigator.of(context).pushReplacementNamed(UsersProductsScreen.id);
+            Navigator.of(context).pushReplacementNamed(UserProductsScreen.id);
           },
         ),
          buildTile('reminder', Icons.alarm, () {

@@ -14,11 +14,11 @@ import './picture/picturesearch.dart';
 import './shop/providers/cart.dart';
 import './shop/providers/products.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'shop/screens/editing_products_screen.dart';
-import 'shop/screens/product_details_screen.dart';
-import 'shop/providers/order.dart';
-import 'shop/screens/product_screen.dart';
-import 'shop/screens/users_products_screen.dart';
+import 'shop/screens/edit_product_screen.dart';
+import 'shop/screens/product_detail_screen.dart';
+import 'shop/providers/orders.dart';
+import 'shop/screens/products_overview_screen.dart';
+import 'shop/screens/user_products_screen.dart';
 
 Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,18 +45,14 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: Auth(),),
-        ProxyProvider<Auth, Products>(
-          update: (ctx, auth, previousProducts) => Products(
-              auth.token,
-              auth.userId, 
-              previousProducts == null ? [] : previousProducts.items),
+       ChangeNotifierProvider.value(
+          value: Products(),
         ),
         ChangeNotifierProvider.value(
           value: Cart(),
         ),
-        ProxyProvider<Auth, Orders>(
-          update: (ctx, auth, previousOrders) => Orders(auth.token, auth.userId,
-              previousOrders == null ? [] : previousOrders.orders),
+        ChangeNotifierProvider.value(
+          value: Orders(),
         ),
         Provider<GlobalBloc>.value(
           value: GlobalBloc()
@@ -87,8 +83,8 @@ class _MyAppState extends State<MyApp> {
             PictureSearch.id: (context) => PictureSearch(),
             CartScreen.id: (context) => CartScreen(),
             OrdersScreen.id: (context) => OrdersScreen(),
-            ProductOverviewscreen.id: (context) => ProductOverviewscreen(),
-            UsersProductsScreen.id: (context) => UsersProductsScreen(),
+            ProductsOverviewScreen.id: (context) => ProductsOverviewScreen(),
+            UserProductsScreen.id: (context) => UserProductsScreen(),
             EditProductScreen.id: (context) => EditProductScreen(),
             HomePage.id:(context) => HomePage(),
             ProductDetailScreen.id :(context) => ProductDetailScreen(),

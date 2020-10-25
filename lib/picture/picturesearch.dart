@@ -92,79 +92,94 @@ class _PictureSearchState extends State<PictureSearch> {
 
   @override
   Widget build(BuildContext context) {
-    // Size screen = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: Topbar('Picture Search', []),
-        drawer: MainDrawer(),
-        body: Stack(
-          children: [
-            Column(
-              children: <Widget>[
-                SizedBox(height: 50.0),
-                imageLoaded
-                    ? Center(
-                        child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(blurRadius: 20),
-                          ],
+      appBar: Topbar(
+        'Picture Search',
+        [
+          IconButton(
+            icon: Icon(
+              Icons.search
+            ),
+            onPressed: () {
+            },
+          ),
+        ],
+      ),
+      drawer: MainDrawer(),
+      body: Stack(
+        children: [
+          Column(
+            children: <Widget>[
+              SizedBox(height: 50.0),
+              imageLoaded
+                  ? Center(
+                      child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(blurRadius: 20),
+                        ],
+                      ),
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
+                      height: 250,
+                      child: Image.file(
+                        pickedImage,
+                        fit: BoxFit.cover,
+                      ),
+                    ))
+                  : Container(),
+              SizedBox(height: 10.0),
+              imageLoaded == false
+                  ? Center(
+                      child: FlatButton.icon(
+                        icon: Icon(
+                          Icons.photo_camera,
+                          size: 80,
+                          color: Colors.blueAccent,
                         ),
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
-                        height: 250,
-                        child: Image.file(
-                          pickedImage,
-                          fit: BoxFit.cover,
-                        ),
-                      ))
-                    : Container(),
-                SizedBox(height: 10.0),
-                imageLoaded ==false?Center(
-                  child: FlatButton.icon(
-                    icon: Icon(
-                      Icons.photo_camera,
-                      size: 80,
-                      color: Colors.blueAccent,
-                    ),
-                    label: Text('Selct picture here'),
-                    textColor: Colors.blueAccent,
-                    onPressed: () async {
-                      pickImage();
-                    },
-                  ),
-                ):Container(),
-                SizedBox(height: 10.0),
-                text == ''
-                    ? Container()
-                    : Expanded(
-                        child: SingleChildScrollView(
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Text(
-                              text,
-                            ),
+                        label: Text('Selct picture here'),
+                        textColor: Colors.blueAccent,
+                        onPressed: () async {
+                          pickImage();
+                        },
+                      ),
+                    )
+                  : Container(),
+              SizedBox(height: 10.0),
+              text == ''
+                  ? Container()
+                  : Expanded(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Text(
+                            text,
                           ),
                         ),
                       ),
-              ],
-            ),
-            imageLoaded
-                ? Positioned(
-                    top: 10,
-                    right: 10,
-                    child: IconButton(
-                        icon: Icon(Icons.close),
-                        onPressed: () {
-                          setState(() {
-                            text = '';
-                            imageLoaded = false;
-                          });
-                        }),
-                  )
-                : Container(),
-             imageLoaded == false ?Positioned(
-               bottom: 5,left:50,right: 50,
-                            child: InkWell(
+                    ),
+            ],
+          ),
+          imageLoaded
+              ? Positioned(
+                  top: 10,
+                  right: 10,
+                  child: IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () {
+                        setState(() {
+                          text = '';
+                          imageLoaded = false;
+                        });
+                      }),
+                )
+              : Container(),
+          imageLoaded == false
+              ? Positioned(
+                  bottom: 5,
+                  left: 50,
+                  right: 50,
+                  child: InkWell(
                     onTap: () async {
                       cameraImage();
                     },
@@ -178,9 +193,10 @@ class _PictureSearchState extends State<PictureSearch> {
                       ),
                     ),
                   ),
-             ):Container()
-          ],
-        ),
+                )
+              : Container()
+        ],
+      ),
     );
   }
 }

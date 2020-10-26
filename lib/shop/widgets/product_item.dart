@@ -4,18 +4,17 @@ import 'package:provider/provider.dart';
 import '../screens/product_detail_screen.dart';
 import '../providers/product.dart';
 import '../providers/cart.dart';
+import 'package:agri_app/login/auth.dart';
 
 class ProductItem extends StatelessWidget {
-  // final String id;
-  // final String title;
-  // final String imageUrl;
-
-  // ProductItem(this.id, this.title, this.imageUrl);
+  
 
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
     final cart = Provider.of<Cart>(context, listen: false);
+    final authData =Provider.of<Auth>(context,listen: false);
+    bool isFav;
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -40,7 +39,9 @@ class ProductItem extends StatelessWidget {
                   ),
                   color: Theme.of(context).accentColor,
                   onPressed: () {
-                    product.toggleFavoriteStatus();
+                    isFav=product.isFavorite;
+                    print(isFav);
+                    product.toggleFav(authData.token,authData.userId);
                   },
                 ),
           ),

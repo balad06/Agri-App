@@ -1,3 +1,4 @@
+import 'package:agri_app/account/profile.dart';
 import 'package:agri_app/login/loginscreen.dart';
 import 'package:agri_app/picture/picturesearch.dart';
 import 'package:agri_app/reminder/ui/homepage.dart';
@@ -88,6 +89,7 @@ class MainDrawer extends StatelessWidget {
          buildTile('reminder', Icons.alarm, () {
           Navigator.of(context).pushReplacementNamed(HomePage.id);
         }),
+        buildTile('Account', Icons.people, (){Navigator.of(context).pushReplacementNamed(Profile.id);}),
          buildTile('LogOut', Icons.shop, () {
            Navigator.pushReplacementNamed(
           context,

@@ -1,3 +1,4 @@
+import 'package:agri_app/shop/providers/products.dart';
 import 'package:agri_app/widgets/appbar.dart';
 import 'package:agri_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,23 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _showOnlyFavorites = false;
+  var _isinit = true;
+  var _isLoading = false;
+  @override
+  void didChangeDependencies() {
+    if (_isinit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<Products>(context).fetchAndSet().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isinit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +87,11 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ],
       ),
       drawer: MainDrawer(),
-      body: ProductsGrid(_showOnlyFavorites),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ProductsGrid(_showOnlyFavorites),
     );
   }
 }

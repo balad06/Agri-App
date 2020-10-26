@@ -71,6 +71,7 @@ flutter:
     - assets/images/agriculture.jpg
     - assets/images/logo.png
     - assets/images/googlelogo.png
+    - assets/images/image.png
     - assets/animations/Success Check.flr
   #   - images/a_dot_ham.jpeg
 

@@ -1,10 +1,6 @@
 import 'package:agri_app/picture/picturesearch.dart';
 import 'package:flutter/material.dart';
 import './login widgets/beziercontainer.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'auth.dart';
 import 'package:provider/provider.dart';
 
@@ -27,47 +23,6 @@ class _LoginPageState extends State<LoginPage> {
 
   final _passwordController = TextEditingController();
   bool _isLoading = false;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = new GoogleSignIn();
-  DatabaseReference dbRef =
-      FirebaseDatabase.instance.reference().child("Users");
-
-  Future<String> signInWithGoogle() async {
-    await Firebase.initializeApp();
-
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
-
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
-
-    final UserCredential authResult =
-        await _auth.signInWithCredential(credential);
-    final User user = authResult.user;
-
-    if (user != null) {
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
-
-      final User currentUser = _auth.currentUser;
-      assert(user.uid == currentUser.uid);
-
-      print('signInWithGoogle succeeded: $user');
-
-      return '$user';
-    }
-
-    return null;
-  }
-
-  Future<void> signOutGoogle() async {
-    await googleSignIn.signOut();
-
-    print("User Signed Out");
-  }
 
   Widget _submitButton(String type) {
     return InkWell(
@@ -385,15 +340,6 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    // SizedBox(height: height * .015),
-                    // Container(
-                    //     height: height * .15,
-                    //     // child: Image.asset('assets/images/agrilogo1.jpg')
-                    //     alignment: Alignment.center,
-                    //     child:Text('AgriAPP',style: TextStyle( fontWeight: FontWeight.bold,
-                    //         fontSize: 45,
-                    //         color: Colors.white),)
-                    //     ),
                     SizedBox(height: height * .125),
                     Container(
                       padding:
@@ -416,7 +362,7 @@ class _LoginPageState extends State<LoginPage> {
                     _createAccountLabel(type),
                     InkWell(
                       onTap: () {
-                        signInWithGoogle().then((result) {
+                        Provider.of<Auth>(context,listen: false).signInWithGoogle().then((result) {
                           if (result != null) {
                             Navigator.of(context)
                                 .pushReplacementNamed(PictureSearch.id);

@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'package:agri_app/account/account_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 import 'login/auth.dart';
 import 'reminder/ui/homepage.dart';
@@ -19,11 +19,12 @@ import 'shop/screens/product_detail_screen.dart';
 import 'shop/providers/orders.dart';
 import 'shop/screens/products_overview_screen.dart';
 import 'shop/screens/user_products_screen.dart';
+import 'account/profile.dart';
 
 Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Provider.debugCheckInvalidValueType = null;
-   await Firebase.initializeApp();
+  await Firebase.initializeApp();
 
   runApp(new MyApp());
 }
@@ -34,32 +35,40 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-   GlobalBloc globalBloc;
+  GlobalBloc globalBloc;
 
   void initState() {
     globalBloc = GlobalBloc();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: Auth(),),
-       ChangeNotifierProvider.value(
-          value: Products(),
+        ChangeNotifierProvider.value(
+          value: Auth(),
+        ),
+        ProxyProvider<Auth, Products>(
+          update: (ctx, auth, previousProducts) => Products(
+              auth.token,
+              auth.userId,
+              previousProducts == null ? [] : previousProducts.items),
         ),
         ChangeNotifierProvider.value(
           value: Cart(),
         ),
-        ChangeNotifierProvider.value(
-          value: Orders(),
+        ProxyProvider<Auth, Orders>(
+          update: (ctx, auth, previousOrders) => Orders(auth.token, auth.userId,
+              previousOrders == null ? [] : previousOrders.orders),
         ),
-        Provider<GlobalBloc>.value(
-          value: GlobalBloc()
-          ),
+        Provider<GlobalBloc>.value(value: GlobalBloc()),
+        ChangeNotifierProvider.value(
+          value: Accounts(),
+        )
       ],
       child: Consumer<Auth>(
-              builder:(ctx,auth,_) => MaterialApp(
+        builder: (ctx, auth, _) => MaterialApp(
           debugShowCheckedModeBanner: false,
           debugShowMaterialGrid: false,
           title: 'Agri',
@@ -67,17 +76,16 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: Colors.lightGreen,
             accentColor: Colors.blueAccent,
           ),
-          home: 
-          auth.isAuth
-                ? PictureSearch()
-                : FutureBuilder(
-                    future: auth.tryautoLogin(),
-                    builder: (ctx, authResultSnapShots) =>
-                        authResultSnapShots.connectionState ==
-                                ConnectionState.waiting
-                            ? WelcomePage()
-                            : LoginPage(),
-                  ),
+          home: auth.isAuth
+              ? PictureSearch()
+              : FutureBuilder(
+                  future: auth.tryautoLogin(),
+                  builder: (ctx, authResultSnapShots) =>
+                      authResultSnapShots.connectionState ==
+                              ConnectionState.waiting
+                          ? WelcomePage()
+                          : LoginPage(),
+                ),
           routes: {
             LoginPage.id: (context) => LoginPage(),
             PictureSearch.id: (context) => PictureSearch(),
@@ -86,8 +94,9 @@ class _MyAppState extends State<MyApp> {
             ProductsOverviewScreen.id: (context) => ProductsOverviewScreen(),
             UserProductsScreen.id: (context) => UserProductsScreen(),
             EditProductScreen.id: (context) => EditProductScreen(),
-            HomePage.id:(context) => HomePage(),
-            ProductDetailScreen.id :(context) => ProductDetailScreen(),
+            HomePage.id: (context) => HomePage(),
+            ProductDetailScreen.id: (context) => ProductDetailScreen(),
+            Profile.id: (context) => Profile(),
           },
         ),
       ),

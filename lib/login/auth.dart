@@ -159,6 +159,7 @@ class Auth with ChangeNotifier {
       _authTimer.cancel();
       _authTimer = null;
     }
+    print('logged out');
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();

@@ -40,7 +40,31 @@ class _OrdersScreenState extends State<OrdersScreen> {
       drawer: MainDrawer(),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
-          : ListView.builder(
+          : orderData.orders.length == 0? LayoutBuilder(
+          builder: (ctx, constraints) {
+            return Center(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'No Orders yet!',
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                      height: constraints.maxHeight * 0.7,
+                      child: Image.asset(
+                        'assets/images/waiting.png',
+                        fit: BoxFit.cover,
+                      )),
+                ],
+              ),
+            );
+          },
+        ):ListView.builder(
               itemCount: orderData.orders.length,
               itemBuilder: (ctx, i) => OrderItem(orderData.orders[i]),
             ),

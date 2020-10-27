@@ -173,7 +173,6 @@ class PlantDetails extends StatelessWidget {
   }
 }
 
-
 class MainSection extends StatelessWidget {
   final Plant plant;
 
@@ -183,7 +182,7 @@ class MainSection extends StatelessWidget {
   }) : super(key: key);
 
   Hero makeIcon(double size) {
-    if (plant.plantType == "water") {
+    if (plant.plantName == "water") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
@@ -192,7 +191,7 @@ class MainSection extends StatelessWidget {
           size: size,
         ),
       );
-    } else if (plant.plantType == "fertilizer") {
+    } else if (plant.plantName == "fertilizer") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
@@ -201,7 +200,7 @@ class MainSection extends StatelessWidget {
           size: size,
         ),
       );
-    } else if (plant.plantType == "bugz") {
+    } else if (plant.plantName == "bugz") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
@@ -210,7 +209,7 @@ class MainSection extends StatelessWidget {
           size: size,
         ),
       );
-    } else if (plant.plantType == "diffrent") {
+    } else if (plant.plantName == "diffrent") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
@@ -219,15 +218,16 @@ class MainSection extends StatelessWidget {
           size: size,
         ),
       );
+    } else {
+      return Hero(
+        tag: plant.plantName + plant.plantType,
+        child: Icon(
+          Icons.access_alarm,
+          color: Colors.lightGreen,
+          size: size,
+        ),
+      );
     }
-    return Hero(
-      tag: plant.plantName + plant.plantType,
-      child: Icon(
-        Icons.local_hospital,
-        color: Colors.lightGreen,
-        size: size,
-      ),
-    );
   }
 
   @override
@@ -314,9 +314,8 @@ class ExtendedSection extends StatelessWidget {
         children: <Widget>[
           ExtendedInfoTab(
             fieldTitle: " Plant Requirment",
-            fieldInfo: plant.plantType == "None"
-                ? "Not Specified"
-                : plant.plantType,
+            fieldInfo:
+                plant.plantType == "None" ? "Not Specified" : plant.plantType,
           ),
           ExtendedInfoTab(
             fieldTitle: "Dose Interval",

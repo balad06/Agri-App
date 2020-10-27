@@ -40,7 +40,7 @@ class _OrderItemState extends State<OrderItem> {
           if (_expanded)
             Container(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-              height: min(widget.order.products.length * 20.0 + 10, 100),
+              height: min(widget.order.products.length * 20.0 + 20, 100),
               child: ListView(
                 children: widget.order.products
                     .map(
@@ -48,16 +48,16 @@ class _OrderItemState extends State<OrderItem> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                prod.title,
+                                prod.title.length>20? '${prod.title.substring(0,20)} ...s':prod.title,
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Text(
-                                '${prod.quantity}x \$${prod.price}',
+                                '${prod.quantity}x ₹${prod.price}',
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 14,
                                   color: Colors.grey,
                                 ),
                               )

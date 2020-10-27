@@ -8,57 +8,62 @@ class OrderItem {
   final double amount;
   final List<CartItem> products;
   final DateTime dateTime;
-
-  OrderItem({
-    @required this.id,
-    @required this.amount,
-    @required this.products,
-    @required this.dateTime,
-  });
+  OrderItem(
+      {@required this.id,
+      @required this.amount,
+      @required this.products,
+      @required this.dateTime,
+      });
 }
 
 class Orders with ChangeNotifier {
   List<OrderItem> _orders = [];
   final String authToken;
   final String userId;
-  Orders(this.authToken,this.userId,this._orders);
+  Orders(this.authToken, this.userId, this._orders);
   List<OrderItem> get orders {
     return [..._orders];
   }
 
-   Future<void> fetechAndSetOrders() async {
-    var url = 'https://agricappback.firebaseio.com/orders/$userId.json?auth=$authToken';
+  Future<void> fetechAndSetOrders() async {
+    var url =
+        'https://agricappback.firebaseio.com/orders/$userId.json?auth=$authToken';
     final response = await http.get(url);
     final List<OrderItem> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
-    if(extractedData == null){
+    if (extractedData == null) {
       return;
     }
     extractedData.forEach((orderId, orderData) {
       loadedOrders.add(
         OrderItem(
-          id: orderId,
-          amount: orderData['amount'],
-          dateTime: DateTime.parse(
-            orderData['dateTime'],
-          ),
-          products: (orderData['products'] as List<dynamic>).map(
-            (item) => CartItem(
-              id: item['id'],
-              title: item['title'],
-              quantity: item['quantity'],
-              price: item['price'],
+            id: orderId,
+            amount: orderData['amount'],
+            dateTime: DateTime.parse(
+              orderData['dateTime'],
             ),
-          ).toList()
-        ),
+            products: (orderData['products'] as List<dynamic>)
+                .map(
+                  (item) => CartItem(
+                    id: item['id'],
+                    title: item['title'],
+                    quantity: item['quantity'],
+                    price: item['price'],
+                  ),
+                )
+                .toList(),
+            ),
       );
-    });
+        print(orderData);
+
+    });    
     _orders = loadedOrders.reversed.toList();
     notifyListeners();
   }
 
-  Future<void> addOrder(List<CartItem> cartProducts, double total) async{
-    var url = 'https://agricappback.firebaseio.com/orders$userId.json?auth=$authToken';
+  Future<void> addOrder(List<CartItem> cartProducts, double total) async {
+    var url =
+        'https://agricappback.firebaseio.com/orders/$userId.json?auth=$authToken';
     final timeStamp = DateTime.now();
     final response = await http.post(url,
         body: json.encode({
@@ -73,7 +78,7 @@ class Orders with ChangeNotifier {
                   })
               .toList(),
         }));
-    
+
     _orders.insert(
       0,
       OrderItem(

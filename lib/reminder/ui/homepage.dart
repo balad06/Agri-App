@@ -170,7 +170,7 @@ class PlantCard extends StatelessWidget {
   PlantCard(this.plant);
 
   Hero makeIcon(double size) {
-    if (plant.plantType == "water") {
+    if (plant.plantName == "water") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
@@ -179,7 +179,7 @@ class PlantCard extends StatelessWidget {
           size: size,
         ),
       );
-    } else if (plant.plantType == "bugz") {
+    } else if (plant.plantName == "bugz") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
@@ -188,7 +188,7 @@ class PlantCard extends StatelessWidget {
           size: size,
         ),
       );
-    } else if (plant.plantType == "fertilizers") {
+    } else if (plant.plantName == "fertilizers") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
@@ -197,7 +197,7 @@ class PlantCard extends StatelessWidget {
           size: size,
         ),
       );
-    } else if (plant.plantType == "diffrent") {
+    } else if (plant.plantName == "diffrent") {
       return Hero(
         tag: plant.plantName + plant.plantType,
         child: Icon(
@@ -210,7 +210,7 @@ class PlantCard extends StatelessWidget {
     return Hero(
       tag: plant.plantName + plant.plantType,
       child: Icon(
-        Icons.error,
+        Icons.alarm,
         color: Colors.lightGreen,
         size: size,
       ),

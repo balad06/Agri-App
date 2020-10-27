@@ -126,14 +126,14 @@ class Products with ChangeNotifier {
   }
 
   void deleteProduct(String id) async {
-    print('not deleted');
     final url =
-        'https://agricappback.firebaseio.com/products/$id.json$authToken';
+        'https://agricappback.firebaseio.com/products/$id.json?auth=$authToken';
     final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
     var existingProduct = _items[existingProductIndex];
     _items.removeAt(existingProductIndex);
     notifyListeners();
     final response = await http.delete(url);
+    print(response.body);
     if (response.statusCode >= 400) {
       _items.insert(existingProductIndex, existingProduct);
       notifyListeners();

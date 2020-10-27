@@ -1,3 +1,4 @@
+import 'package:agri_app/shop/screens/user_products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +35,7 @@ class UserProductItem extends StatelessWidget {
               icon: Icon(Icons.delete),
               onPressed: () {
                 Provider.of<Products>(context, listen: false).deleteProduct(id);
+                Navigator.of(context).pushReplacementNamed(UserProductsScreen.id);
               },
               color: Theme.of(context).errorColor,
             ),

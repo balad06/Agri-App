@@ -21,7 +21,8 @@ class NewEntry extends StatefulWidget {
 class _NewEntryState extends State<NewEntry> {
   TextEditingController nameController;
   TextEditingController dosageController;
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   NewEntryBloc _newEntryBloc;
 
   GlobalKey<ScaffoldState> _scaffoldKey;
@@ -39,6 +40,14 @@ class _NewEntryState extends State<NewEntry> {
     nameController = TextEditingController();
     dosageController = TextEditingController();
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    var initializationSettingsAndroid =
+        AndroidInitializationSettings('flutter_devs');
+    var initializationSettingsIOs = IOSInitializationSettings();
+    var initSetttings = InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOs);
+
+    flutterLocalNotificationsPlugin.initialize(initSetttings,
+        onSelectNotification: onSelectNotification);
     _scaffoldKey = GlobalKey<ScaffoldState>();
     initializeNotifications();
     initializeErrorListen();
@@ -55,7 +64,7 @@ class _NewEntryState extends State<NewEntry> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color:Colors.lightGreen,
+          color: Colors.lightGreen,
         ),
         centerTitle: true,
         title: Text(
@@ -108,7 +117,6 @@ class _NewEntryState extends State<NewEntry> {
               SizedBox(
                 height: 15,
               ),
-
               PanelTitle(
                 title: "Reminder Type",
                 isRequired: false,
@@ -163,7 +171,6 @@ class _NewEntryState extends State<NewEntry> {
                 title: "Starting Time",
                 isRequired: true,
               ),
-
               SelectTime(),
               SizedBox(
                 height: 35,
@@ -177,7 +184,7 @@ class _NewEntryState extends State<NewEntry> {
                   width: 220,
                   height: 50,
                   child: FlatButton(
-                    color:Colors.lightGreen,
+                    color: Colors.lightGreen,
                     shape: StadiumBorder(),
                     child: Center(
                       child: Text(
@@ -338,7 +345,7 @@ class _NewEntryState extends State<NewEntry> {
       'repeatDailyAtTime description',
       importance: Importance.max,
       // sound: 'sound',
-      ledColor:Colors.lightGreen,
+      ledColor: Colors.lightGreen,
       ledOffMs: 1000,
       ledOnMs: 1000,
       enableLights: true,
@@ -405,7 +412,7 @@ class _IntervalSelectionState extends State<IntervalSelection> {
               ),
             ),
             DropdownButton<int>(
-              iconEnabledColor:Colors.lightGreen,
+              iconEnabledColor: Colors.lightGreen,
               hint: _selected == 0
                   ? Text(
                       "Select an Interval",
@@ -462,7 +469,8 @@ class _SelectTimeState extends State<SelectTime> {
   bool _clicked = false;
 
   Future<TimeOfDay> _selectTime(BuildContext context) async {
-    final NewEntryBloc _newEntryBloc = Provider.of<NewEntryBloc>(context ,listen:false);
+    final NewEntryBloc _newEntryBloc =
+        Provider.of<NewEntryBloc>(context, listen: false);
     final TimeOfDay picked = await showTimePicker(
       context: context,
       initialTime: _time,
@@ -485,7 +493,7 @@ class _SelectTimeState extends State<SelectTime> {
       child: Padding(
         padding: EdgeInsets.only(top: 10.0, bottom: 4),
         child: FlatButton(
-          color:Colors.lightGreen,
+          color: Colors.lightGreen,
           shape: StadiumBorder(),
           onPressed: () {
             _selectTime(context);
@@ -535,16 +543,15 @@ class MedicineTypeColumn extends StatelessWidget {
             width: 85,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: isSelected ?Colors.lightGreen : Colors.white,
+              color: isSelected ? Colors.lightGreen : Colors.white,
             ),
             child: Center(
               child: Padding(
                 padding: EdgeInsets.only(top: 14.0),
-                child: 
-                Icon(
+                child: Icon(
                   iconValue,
                   size: 25,
-                  color: isSelected ? Colors.white :Colors.lightGreen,
+                  color: isSelected ? Colors.white : Colors.lightGreen,
                 ),
               ),
             ),
@@ -555,7 +562,7 @@ class MedicineTypeColumn extends StatelessWidget {
               width: 80,
               height: 30,
               decoration: BoxDecoration(
-                color: isSelected ?Colors.lightGreen : Colors.transparent,
+                color: isSelected ? Colors.lightGreen : Colors.transparent,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
@@ -563,7 +570,7 @@ class MedicineTypeColumn extends StatelessWidget {
                   name,
                   style: TextStyle(
                     fontSize: 16,
-                    color: isSelected ? Colors.white :Colors.lightGreen,
+                    color: isSelected ? Colors.white : Colors.lightGreen,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -598,7 +605,7 @@ class PanelTitle extends StatelessWidget {
           ),
           TextSpan(
             text: isRequired ? " *" : "",
-            style: TextStyle(fontSize: 14, color:Colors.lightGreen),
+            style: TextStyle(fontSize: 14, color: Colors.lightGreen),
           ),
         ]),
       ),

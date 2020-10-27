@@ -1,11 +1,12 @@
 import 'package:agri_app/account/profile.dart';
-import 'package:agri_app/login/loginscreen.dart';
 import 'package:agri_app/picture/picturesearch.dart';
 import 'package:agri_app/reminder/ui/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:agri_app/shop/screens/products_overview_screen.dart';
 import '../shop/screens/orders_screen.dart';
 import 'package:agri_app/shop/screens/user_products_screen.dart';
+import 'package:agri_app/login/auth.dart';
+import 'package:provider/provider.dart';
 
 class MainDrawer extends StatelessWidget {
   Widget buildTile(String name, IconData icon, Function onTap) {
@@ -86,15 +87,16 @@ class MainDrawer extends StatelessWidget {
             Navigator.of(context).pushReplacementNamed(UserProductsScreen.id);
           },
         ),
-         buildTile('reminder', Icons.alarm, () {
+        buildTile('reminder', Icons.alarm, () {
           Navigator.of(context).pushReplacementNamed(HomePage.id);
         }),
-        buildTile('Account', Icons.people, (){Navigator.of(context).pushReplacementNamed(Profile.id);}),
-         buildTile('LogOut', Icons.shop, () {
-           Navigator.pushReplacementNamed(
-          context,
-        LoginPage.id,
-        );
+        buildTile('Account', Icons.people, () {
+          Navigator.of(context).pushReplacementNamed(Profile.id);
+        }),
+        buildTile('LogOut', Icons.shop, () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pushReplacementNamed('/');
+          Provider.of<Auth>(context, listen: false).logout();
         }),
       ]),
     );

@@ -25,7 +25,6 @@ class _HomePageState extends State<HomePage> {
       appBar: Topbar('Reminder', []),
       drawer: MainDrawer(),
       body: Container(
-        // color: Colors.lightGreen,
         child: Column(
           children: <Widget>[
             SizedBox(height: 20,),
@@ -48,10 +47,10 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 4,
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.blueAccent,
         child: Icon(
           Icons.add,
-          color: Colors.black,
+          color: Colors.white,
         ),
         onPressed: () {
           Navigator.push(

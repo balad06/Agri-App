@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:agri_app/account/account_details.dart';
+import 'package:agri_app/account/profilpage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +19,6 @@ import 'shop/screens/product_detail_screen.dart';
 import 'shop/providers/orders.dart';
 import 'shop/screens/products_overview_screen.dart';
 import 'shop/screens/user_products_screen.dart';
-import 'account/profile.dart';
 
 Future<Null> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,9 +62,6 @@ class _MyAppState extends State<MyApp> {
               previousOrders == null ? [] : previousOrders.orders),
         ),
         Provider<GlobalBloc>.value(value: GlobalBloc()),
-        ChangeNotifierProvider.value(
-          value: Accounts(),
-        )
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
@@ -96,7 +92,7 @@ class _MyAppState extends State<MyApp> {
             EditProductScreen.id: (context) => EditProductScreen(),
             HomePage.id: (context) => HomePage(),
             ProductDetailScreen.id: (context) => ProductDetailScreen(),
-            Profile.id: (context) => Profile(),
+            ProfileView.id: (context) => ProfileView(),
           },
         ),
       ),

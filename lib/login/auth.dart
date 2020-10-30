@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,9 +46,28 @@ class Auth with ChangeNotifier {
   DatabaseReference dbRef =
       FirebaseDatabase.instance.reference().child("Users");
 
+  Future<String> getCurrentUID() async {
+    return (_firebaseAuth.currentUser).uid;
+  }
+
+  getProfileImage() {
+    if (_firebaseAuth.currentUser.photoURL != null) {
+      return 
+           Image.network(
+            _firebaseAuth.currentUser.photoURL,
+          );
+    } else {
+      return Icon(Icons.account_circle, size: 100);
+    }
+  }
+
+  Future getCurrentUser() async {
+    return _firebaseAuth.currentUser;
+  }
+
   Future<String> signInWithGoogle() async {
     await Firebase.initializeApp();
-    _isGoogleSignin =true;
+    _isGoogleSignin = true;
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;

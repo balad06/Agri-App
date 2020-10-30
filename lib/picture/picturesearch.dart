@@ -51,9 +51,6 @@ class _PictureSearchState extends State<PictureSearch> {
       setState(() {
         lab = label.text;
         text = "$text $lab   $confidence \n";
-        print(label.text);
-
-        print(text);
       });
     }
 
@@ -81,9 +78,6 @@ class _PictureSearchState extends State<PictureSearch> {
       setState(() {
         lab = label.text;
         text = "$text $lab   $confidence \n";
-        print(label.text);
-
-        print(text);
       });
     }
 

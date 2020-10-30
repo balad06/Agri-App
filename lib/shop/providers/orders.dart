@@ -89,4 +89,25 @@ class Orders with ChangeNotifier {
     );
     notifyListeners();
   }
+  void deleteOrders(String id) async {
+    final url =
+        'https://agricappback.firebaseio.com/orders/$userId/$id.json?auth=$authToken';
+    print('Deleting');
+    final existingProductIndex = _orders.indexWhere((prod) => prod.id == id);
+    var existingProduct = _orders[existingProductIndex];
+    _orders.removeAt(existingProductIndex);
+    notifyListeners();
+    final response = await http.delete(url);
+    print(response.body);
+    if (response.statusCode >= 400) {
+      _orders.insert(existingProductIndex, existingProduct);
+      notifyListeners();
+      throw 'Could not delete';
+    }
+    existingProduct = null;
+  }
+
+  notifyListeners();
 }
+
+ 

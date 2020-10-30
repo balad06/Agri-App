@@ -1,4 +1,4 @@
-import 'package:agri_app/account/profile.dart';
+import 'package:agri_app/account/profilpage.dart';
 import 'package:agri_app/picture/picturesearch.dart';
 import 'package:agri_app/reminder/ui/homepage.dart';
 import 'package:flutter/material.dart';
@@ -8,97 +8,219 @@ import 'package:agri_app/shop/screens/user_products_screen.dart';
 import 'package:agri_app/login/auth.dart';
 import 'package:provider/provider.dart';
 
-class MainDrawer extends StatelessWidget {
-  Widget buildTile(String name, IconData icon, Function onTap) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        height: 35.0,
-        child: InkWell(
-          onTap: onTap,
-          child: Text(
-            name,
-            style: TextStyle(
-                fontWeight: FontWeight.w300, color: Color(0xFF707070)),
-          ),
-        ),
-      ),
-    );
-  }
+class MainDrawer extends StatefulWidget {
 
-  Widget subTile(String name, Function onTap) {
-    return Padding(
-      padding: EdgeInsets.only(left: 30.0),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Container(
-          height: 30.0,
-          child: InkWell(
-            onTap: onTap,
-            child: Text(
-              name,
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                color: Color(0xFF707070),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  @override
+  _MainDrawerState createState() => _MainDrawerState();
+}
 
+class _MainDrawerState extends State<MainDrawer> {
+  bool showmore = false;
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(children: <Widget>[
-        Container(
-          height: 120,
-          width: double.infinity,
-          padding: EdgeInsets.all(20),
-          alignment: Alignment.centerLeft,
-          color: Colors.black87,
-          child: Text(
-            'Welcome ',
-            style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.w800,
-                color: Theme.of(context).primaryColor),
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 10,
           ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        buildTile('Plant Search', Icons.camera, () {
-          Navigator.of(context).pushReplacementNamed(PictureSearch.id);
-        }),
-        buildTile('Shop', Icons.shop, () {
-          Navigator.of(context).pushReplacementNamed(ProductsOverviewScreen.id);
-        }),
-        subTile(
-          'Orders',
-          () {
-            Navigator.of(context).pushReplacementNamed(OrdersScreen.id);
-          },
-        ),
-        subTile(
-          'Edit Products',
-          () {
-            Navigator.of(context).pushReplacementNamed(UserProductsScreen.id);
-          },
-        ),
-        buildTile('reminder', Icons.alarm, () {
-          Navigator.of(context).pushReplacementNamed(HomePage.id);
-        }),
-        buildTile('Account', Icons.people, () {
-          Navigator.of(context).pushReplacementNamed(Profile.id);
-        }),
-        buildTile('LogOut', Icons.shop, () {
-          Navigator.of(context).pop();
-          Navigator.of(context).pushReplacementNamed('/');
-          Provider.of<Auth>(context, listen: false).logout();
-        }),
-      ]),
+          DrawerHeader(
+            child: Container(
+                height: 100,
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  "assets/images/agrilogo1.jpg",
+                )),
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.camera,
+              color: Colors.blueAccent,
+            ),
+            title: Text(
+              'Picture Search',
+              style: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(PictureSearch.id);
+            },
+          ),
+          SizedBox(
+            height: 13,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.shopping_cart,
+              color: Colors.blueAccent,
+            ),
+            title: Text(
+              'Shop',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.blueAccent,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(ProductsOverviewScreen.id);
+            },
+            trailing: IconButton(
+              color: Colors.blueAccent,
+              icon: showmore
+                  ? Icon(
+                      Icons.arrow_back,
+                    )
+                  : Icon(Icons.arrow_drop_down),
+              onPressed: () {
+                setState(() {
+                  showmore = !showmore;
+                });
+              },
+            ),
+          ),
+          showmore
+              ? ListTile(
+                  leading: Icon(
+                    Icons.bookmark,
+                    color: Colors.blueAccent,
+                  ),
+                  title: Text(
+                    'Orders',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.blueAccent,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed(OrdersScreen.id);
+                  },
+                )
+              : Container(),
+          showmore
+              ? ListTile(
+                  leading: Icon(
+                    Icons.edit,
+                    color: Colors.blueAccent,
+                  ),
+                  title: Text(
+                    'Edit Products',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.blueAccent,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(UserProductsScreen.id);
+                  },
+                )
+              : Container(),
+          SizedBox(
+            height: 13,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.alarm,
+              color: Colors.blueAccent,
+            ),
+            title: Text(
+              'Reminder',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.blueAccent,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(HomePage.id);
+            },
+          ),
+          SizedBox(
+            height: 13,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.account_circle,
+              color: Colors.blueAccent,
+            ),
+            title: Text(
+              'Account',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.blueAccent,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(ProfileView.id);
+            },
+          ),
+          SizedBox(
+            height: 13,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.exit_to_app,
+              color: Colors.blueAccent,
+            ),
+            title: Text(
+              'Logout',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.blueAccent,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacementNamed('/');
+              Provider.of<Auth>(context, listen: false).logout();
+            },
+          ),
+          SizedBox(
+            height: 13,
+          ),
+          Expanded(
+              child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 25,
+              width: MediaQuery.of(context).size.width,
+              color: Colors.black,
+              child: Center(
+                child: Text(
+                  'v1.0.1',
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ))
+        ],
+      ),
     );
   }
 }

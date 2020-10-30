@@ -10,8 +10,8 @@ import 'package:agri_app/reminder/ui/new_entry_bloc.dart';
 import 'package:agri_app/reminder/ui/success_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
+// import 'package:timezone/data/latest.dart' as tz;
+// import 'package:timezone/timezone.dart' as tz;
 
 class NewEntry extends StatefulWidget {
   @override
@@ -41,7 +41,7 @@ class _NewEntryState extends State<NewEntry> {
     dosageController = TextEditingController();
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     var initializationSettingsAndroid =
-        AndroidInitializationSettings('flutter_devs');
+        AndroidInitializationSettings('smile_icon');
     var initializationSettingsIOs = IOSInitializationSettings();
     var initSetttings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOs);
@@ -316,7 +316,7 @@ class _NewEntryState extends State<NewEntry> {
 
   initializeNotifications() async {
     var initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/launcher_icon');
+        AndroidInitializationSettings('app_icon');
     var initializationSettingsIOS = IOSInitializationSettings();
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
@@ -343,6 +343,8 @@ class _NewEntryState extends State<NewEntry> {
       'repeatDailyAtTime channel id',
       'repeatDailyAtTime channel name',
       'repeatDailyAtTime description',
+      icon: 'app_icon',
+      
       importance: Importance.max,
       // sound: 'sound',
       ledColor: Colors.lightGreen,
@@ -354,26 +356,20 @@ class _NewEntryState extends State<NewEntry> {
     var platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
-
     for (int i = 0; i < (24 / medicine.interval).floor(); i++) {
       if ((hour + (medicine.interval * i) > 23)) {
         hour = hour + (medicine.interval * i) - 24;
       } else {
         hour = hour + (medicine.interval * i);
       }
-      await flutterLocalNotificationsPlugin.zonedSchedule(
-        int.parse(medicine.notificationIDs[i]),
-        'Mediminder: ${medicine.plantName}',
-        medicine.plantType.toString() != MedicineType.None.toString()
-            ? 'It is time to take your plant, according to schedule'
-            : 'It is time to take care of youre plant, according to schedule',
-        tz.TZDateTime.now(tz.local)
-            .add(Duration(hours: hour, minutes: minute, seconds: 0)),
-        platformChannelSpecifics,
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-      );
+      await flutterLocalNotificationsPlugin.showDailyAtTime(
+          int.parse(medicine.notificationIDs[i]),
+          'Mediminder: ${medicine.plantName}',
+          medicine.plantType.toString() != MedicineType.None.toString()
+              ? 'It is time to take your ${medicine.plantType.toLowerCase()}, according to schedule'
+              : 'It is time to take your medicine, according to schedule',
+          Time(hour, minute, 0),
+          platformChannelSpecifics);
       hour = ogValue;
     }
     await flutterLocalNotificationsPlugin.cancelAll();

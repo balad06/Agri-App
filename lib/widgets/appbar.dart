@@ -11,16 +11,6 @@ class Topbar extends StatelessWidget implements PreferredSizeWidget {
         title: Text(
           title,
         ),
-        // flexibleSpace: Container(
-        //   decoration: BoxDecoration(
-        //     gradient: LinearGradient(
-        //       begin: Alignment.topLeft,
-        //       end: Alignment.bottomRight,
-        //       colors: [Colors.blueAccent[200], Colors.lightGreen],
-        //     ),
-        //   ),
-          
-        // ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(27),

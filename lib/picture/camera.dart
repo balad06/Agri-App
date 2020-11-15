@@ -44,18 +44,14 @@ class _CameraState extends State<Camera> {
           return;
         }
         setState(() {});
-
         controller.startImageStream((CameraImage img) {
           if (!isDetecting) {
             isDetecting = true;
-
             int startTime = new DateTime.now().millisecondsSinceEpoch;
-
             Tflite.runModelOnFrame(
               bytesList: img.planes.map((plane) {
                 return plane.bytes;
               }).toList(),
-
               imageHeight: img.height,
               imageWidth: img.width,
               imageMean: 127.5,
@@ -65,16 +61,8 @@ class _CameraState extends State<Camera> {
               threshold:0.1
             ).then((recognitions) {
               recognitions.map((res) {
-
               });
-
-
-
               print(recognitions);
-
-
-
-
               int endTime = new DateTime.now().millisecondsSinceEpoch;
               print("Detection took ${endTime - startTime}");
 
